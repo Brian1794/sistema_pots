@@ -1,0 +1,2309 @@
+{
+  "admin": {
+    "usuario": "admin",
+    "password": "brian1234"
+  },
+  "productos": [
+    {
+      "id": "hm1",
+      "nombre": "Martillo de garra",
+      "descripcion": "Martillo resistente para carpintería",
+      "categoria": "Herramientas Manuales",
+      "stock": 20,
+      "precio": 12000,
+      "imagen": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRVOCVRk1KdLzMWPsisxFCbSXo-Ok3EVREoRgl41RMWhyrL_9ej5ynBDhtoJv2cMh0cYNe6k5yXutkRK0M8Cur4F6K78ZwBBbNKVWBLZQeBGUwsaIb0Doe0RQ"
+    },
+    {
+      "id": "hm2",
+      "nombre": "Destornillador plano",
+      "descripcion": "Destornillador de punta plana",
+      "categoria": "Herramientas Manuales",
+      "stock": 10,
+      "precio": 5000,
+      "imagen": "data:image/png;base64,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"
+    },
+    {
+      "id": "hm4",
+      "nombre": "Llave ajustable",
+      "descripcion": "Llave para tuercas de varios tamaños",
+      "categoria": "Herramientas Manuales",
+      "stock": 11,
+      "precio": 9000,
+      "imagen": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRRAWVkjI0LQB2CQGKZ5ejsIMDw1DWkZDaAEPLqgIU1vSnyUY6JixopYgQJZk6ZHAQA-3-6IoUFWnfunWES8Cj5-EEQuy4rZIPccvEohPemH3Qf00e9FxigkSQEvkEdJmIu_hJt1rE&usqp=CAc"
+    },
+    {
+      "id": "hm6",
+      "nombre": "Alicate universal",
+      "descripcion": "Alicate multiuso",
+      "categoria": "Herramientas Manuales",
+      "stock": 17,
+      "precio": 8000,
+      "imagen": "data:image/jpeg;base64,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"
+    },
+    {
+      "id": "hm7",
+      "nombre": "Alicate de corte",
+      "descripcion": "Alicate para cortar cables",
+      "categoria": "Herramientas Manuales",
+      "stock": 18,
+      "precio": 8500,
+      "imagen": "https://www.google.com/aclk?sa=L&ai=DChsSEwimpdX534qRAxVNgFoFHX4eJo8YACICCAEQCRoCdnU&co=1&ase=2&gclid=Cj0KCQiAoZDJBhC0ARIsAERP-F_IOBFhOzQnMmAXLrdKs7KvYyEI0pWPRRZPiC6jn1sbCnRKzFI3SPIaAg-kEALw_wcB&cid=CAAS3gHkaO51KJ5qfFfCl4QVDmhZ6xrHjK4YCK7d15F6XbbEhFMsmLGVOPA4Owyz9mrGKT8r5TSmY4ZXzKdA12DHhCnzijhgg5IIYA3qfQX1PXQ2V-Jre7xpswihDhShfZQjb4ShzdWbFtAKHK9jfweHpGfgNO75wEQU-UlRpIiC6JN0Tdx9wKzuuWOBWf3_CpY9o4UPsicyOXZH19_zQ4m-XmzHlbFJeF0hktplgrU4deYtHRbH-YPwbNMkZpUx6tX6YV0rF6RPX3gaRFqkpuieKS0KmuJCgJ4T4zjoOj1sjes&cce=2&category=acrcp_v1_32&sig=AOD64_2PZITvs68PekBH-0qsAKMgpEM3KQ&ctype=5&q=&nis=4&ved=2ahUKEwjVts_534qRAxWfSDABHdH_JWgQ9aACKAB6BAgHEA8&adurl="
+    },
+    {
+      "id": "hm8",
+      "nombre": "Serrucho",
+      "descripcion": "Serrucho para madera",
+      "categoria": "Herramientas Manuales",
+      "stock": 19,
+      "precio": 11000,
+      "imagen": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAJQAngMBIgACEQEDEQH/xAAbAAEAAwEBAQEAAAAAAAAAAAAABAUGAQMHAv/EADwQAAICAgEBBAYFCQkAAAAAAAABAgMEEQUhEjFBUQYTFGFx0SJykaGxFiMyM0KBkpPBJDRTVGKCoqPS/8QAGAEBAAMBAAAAAAAAAAAAAAAAAAECBAP/xAAhEQEAAwEAAQQDAQAAAAAAAAAAAQIDETETFCEiMkFREv/aAAwDAQACEQMRAD8A+4gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABxsAdKLlObsxMqWPVSpSST23va+3zKbK9IsmORVRbmUU3Wt+rq7SUpa8k+84W3rE8da42mOtqcctd+jFyy82fWWTbvyi9HL1lVxjLL9dGEuidjetlPdd8Qv7f+y0+Zy+Lip/TU5+EYskYWVHMxoXQWt98fJ+RjHHzlr4mw42qurCqjUkl2U3rxb7ycdbaWnqNc60iEsAGlwAAAAAAEbKzcXEW8nIqq+vJJsp8r0u42l9mn118v8ARDS+16+4DQnNmJzvTWdUHNrHxa0m+1bLfRLb+5MpL/TRX5VeO8m62y2fZUF+bSe139prwknrvfgE8fS7szHo/W3Qj7m+v2EG3ncaPSuM7H8NfifOOC5yfJZsq7MeNK9TG1dqbcpbbTXVJbi111vWybK3P9ZCMm1JNScKYbT0u7fctv393kDjX3c1e19CMK9vS31eyvny0rcpY1llsp702+kU9feUdNCxpRvzbXqPZ3Oye5y13N6Xkvu+Jc05ePOequ05PvcYdH4d5A/WdS3XG+mLc63vS6tx8fmUnIcBxudyuHyOdXb7RiSTpctxi2ntbXi0zTw6dBfRDIpnVNfRlHv8V717zPfLs/6iXaunI5Kmxub4nH5/G42/JjHKn9NVNPqkt9/d5vXuNzOqu+qULFGdc1pp9U0fPq+M4329cjkY1Pt9EXW8iS04pJ9d/Bvr72aXgOVrtjClWxsql1qnFpr4bRzxvWPqvrSZ+yr5HEfF5qo6yot26JN9Vrvi/h4Fr6P50+37Nb3Nbh8fIkek+P6/ibbF0nR+ei/Ls9/3bM/h3y9opnFPXbi/IrePS07Caz6mfJbhA4jpvZHJNRTb6Jd5TZXpNxtPSFkr35Vx6fa+hbX1q2myqX6M4uL+DMVfw3MXxqhZjKUaY9iGpQXRd3iRKYSsn0tul/dcWMN+M3t/YioyeZ5HKUlbl2RT/Zh9BfcSfyf5XWvZH/Nh8zn5O8n/AJR/zIfMj5T8KR1dpube3vq/MpL8LkbbL63fdOHranDuri4PpNfR0213635G3Xo9yiWliP8AmQ+Z+Pyc5Te1hv8AdZD/ANA6x2H6PW+qjVmZUJRlKMrNRcpTkouO9t9Nx0mnvu7/ABLrH4PBjVRB07lUmu2pOLntJNy012t6W977i8q9H+TUtzxf+yHzJtfCZy6vH/5x+ZJ1T249kMRRwa4QkpbUdJJpvcvxbPTFjlVY1UszIrrs/b2l2f3fHx6svY8VlqOvUa/3r5iXEXz7PbxoS7L2tuL0EdUeSsbNovg6vaUobdXZ6T14dSZSsztOMa6K4b8/DXkvHZarjcpLSpWvrI/ceOyf8NfxICJTGUa4qyXanr6TS1tntFskLAyPGC/iR+1g3r9hfahxPWa9IOPqyab4XqXs+VW6b+y9OPgnv+pE4PhsbguNqwsPtyqg3JSlLb23v8TYew3NacFrx6ohy4K5P8xL1S8nqSMuuNp/F3z0j9vLL5S/I4+eJ2IqdkHCVva7k/HXmQaq4whGKj+ikuvjoucbhJ6/tF2vqRS+ZNq4nFiusZy+tJ/0KTjpfymNaU8I/EZ9l8/UXackujXe/iXB404tFP6qmEPfGKR6mulZiOTLPaYmew6AC6oAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2Q=="
+    },
+    {
+      "id": "hm9",
+      "nombre": "Sierra para metales",
+      "descripcion": "Sierra para cortar metal",
+      "categoria": "Herramientas Manuales",
+      "stock": 20,
+      "precio": 13000,
+      "imagen": "https://www.google.com/imgres?q=sierra%20metal&imgurl=https%3A%2F%2Fmedia.falabella.com%2FsodimacCO%2F577683_01%2Fw%3D800%2Ch%3D800%2Cfit%3Dpad&imgrefurl=https%3A%2F%2Fhomecenter.falabella.com.co%2Fhomecenter-co%2Fproduct%2F119403725%2FSierra-para-Metal-de-Arco-23.87-cm-Dewalt%2F119403728&docid=TcKi959Rhwn2bM&tbnid=WsN8PfHwk7dFuM&vet=12ahUKEwiMuJWi4IqRAxU3RjABHaO0KWgQM3oECBkQAA..i&w=800&h=800&hcb=2&ved=2ahUKEwiMuJWi4IqRAxU3RjABHaO0KWgQM3oECBkQAA"
+    },
+    {
+      "id": "hm10",
+      "nombre": "Cinta métrica",
+      "descripcion": "Cinta de medición 5m",
+      "categoria": "Herramientas Manuales",
+      "stock": 20,
+      "precio": 4000,
+      "imagen": "https://www.google.com/imgres?q=cinta%20metalica&imgurl=https%3A%2F%2Fwww.shutterstock.com%2Fimage-photo%2Froll-wide-mounting-metallized-tape-260nw-1492977356.jpg&imgrefurl=https%3A%2F%2Fwww.shutterstock.com%2Fes%2Fimage-photo%2Froll-wide-mounting-metallized-tape-sealing-1492977356&docid=EkGd1gEEGIqXGM&tbnid=q7aFzaW_WSXT4M&vet=12ahUKEwjhosWy4IqRAxWASzABHcdNBdsQM3oECCIQAA..i&w=390&h=280&hcb=2&ved=2ahUKEwjhosWy4IqRAxWASzABHcdNBdsQM3oECCIQAA"
+    },
+    {
+      "id": "hm11",
+      "nombre": "Nivel de burbuja",
+      "descripcion": "Nivel para construcción",
+      "categoria": "Herramientas Manuales",
+      "stock": 20,
+      "precio": 6000,
+      "imagen": "https://www.google.com/imgres?q=nivel%20burbuja&imgurl=https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F51q7IWuDKWS.jpg&imgrefurl=https%3A%2F%2Fwww.amazon.com%2F-%2Fes%2FSagaSave-magn%25C3%25A9tico-pulgadas-construcci%25C3%25B3n-industrial%2Fdp%2FB099PK1PQ9&docid=QdhkNXb7DClePM&tbnid=oNkRbaSn8o_mnM&vet=12ahUKEwi-rJvR4IqRAxWaTDABHf3dJzwQM3oECBMQAA..i&w=1000&h=1000&hcb=2&ved=2ahUKEwi-rJvR4IqRAxWaTDABHf3dJzwQM3oECBMQAA"
+    },
+    {
+      "id": "hm12",
+      "nombre": "Hombre solo",
+      "descripcion": "Pinza para sujetar piezas",
+      "categoria": "Herramientas Manuales",
+      "stock": 20,
+      "precio": 9500,
+      "imagen": "data:image/webp;base64,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"
+    },
+    {
+      "id": "hm14",
+      "nombre": "Juego de llaves bristol",
+      "descripcion": "Set de llaves Allen",
+      "categoria": "Herramientas Manuales",
+      "stock": 20,
+      "precio": 7000,
+      "imagen": "https://www.google.com/imgres?q=Juego%20de%20llaves%20Allen&imgurl=https%3A%2F%2Fsoelco.co%2Fwp-content%2Fuploads%2FALL-10M-P.webp&imgrefurl=https%3A%2F%2Fsoelco.co%2Fproducto%2Fjuego-de-llaves-allen-mm-10-piezas-pretul-21855%2F%3Fsrsltid%3DAfmBOop4W5-hr-eMlD-OsicewH6g1In_OSDqZy4xKMmPFDUwAUAFp_OX&docid=8mjXwtEvsNtFXM&tbnid=nT0HYAJ-aaDwgM&vet=12ahUKEwis8uaN4YqRAxWbRTABHYQCKWUQM3oECBMQAA..i&w=1200&h=1200&hcb=2&ved=2ahUKEwis8uaN4YqRAxWbRTABHYQCKWUQM3oECBMQAA"
+    },
+    {
+      "id": "hm15",
+      "nombre": "Juego de llaves Torx",
+      "descripcion": "Set de llaves Torx",
+      "categoria": "Herramientas Manuales",
+      "stock": 20,
+      "precio": 7500,
+      "imagen": "https://www.google.com/imgres?q=Juego%20de%20llaves%20Torx&imgurl=https%3A%2F%2Fmedia.falabella.com%2FsodimacCO%2F16512%2Fpublic&imgrefurl=https%3A%2F%2Fwww.homecenter.com.co%2Fhomecenter-co%2Fproduct%2F16512%2Fjuego-llaves-torx-8-piezas-stanley%2F16512%2F&docid=IEUYGmjp0e-AWM&tbnid=nvqqHdh-gkVv3M&vet=12ahUKEwjH7tOp4YqRAxVERTABHRkYM5gQM3oECBoQAA..i&w=768&h=768&hcb=2&ved=2ahUKEwjH7tOp4YqRAxVERTABHRkYM5gQM3oECBoQAA"
+    },
+    {
+      "id": "hm16",
+      "nombre": "Cepillo de alambre",
+      "descripcion": "Cepillo para limpieza de metales",
+      "categoria": "Herramientas Manuales",
+      "stock": 20,
+      "precio": 3500,
+      "imagen": "https://www.google.com/imgres?q=Cepillo%20de%20alambre&imgurl=https%3A%2F%2Fmedia.falabella.com%2FsodimacCO%2F644509%2Fpublic&imgrefurl=https%3A%2F%2Fwww.homecenter.com.co%2Fhomecenter-co%2Fproduct%2F644509%2Fcepillo-de-alambre-para-acero-al-carbono-4x16%2F644509%2F&docid=FT1EnXRDBekhCM&tbnid=6sHGzpAtHi-jDM&vet=12ahUKEwjR9_Cz4YqRAxXmQzABHYePJC0QM3oECBQQAA..i&w=768&h=768&hcb=2&ved=2ahUKEwjR9_Cz4YqRAxXmQzABHYePJC0QM3oECBQQAA"
+    },
+    {
+      "id": "hm19",
+      "nombre": "Escuadra metálica",
+      "descripcion": "Escuadra para medición",
+      "categoria": "Herramientas Manuales",
+      "stock": 20,
+      "precio": 5000,
+      "imagen": "https://www.google.com/imgres?q=escuadra&imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2F1%2F1b%2FVinkli.jpg%2F330px-Vinkli.jpg&imgrefurl=https%3A%2F%2Fes.wikipedia.org%2Fwiki%2FEscuadra_(herramienta)&docid=fnwu31JPaYZqaM&tbnid=7JBwiuI_ZdQa8M&vet=12ahUKEwihg8bH4YqRAxWSRDABHUEyCCwQM3oECBkQAA..i&w=330&h=220&hcb=2&ved=2ahUKEwihg8bH4YqRAxWSRDABHUEyCCwQM3oECBkQAA"
+    },
+    {
+      "id": "hm20",
+      "nombre": "Juego de limas",
+      "descripcion": "Set de limas para metal",
+      "categoria": "Herramientas Manuales",
+      "stock": 20,
+      "precio": 8000,
+      "imagen": ""
+    },
+    {
+      "id": "he1",
+      "nombre": "Taladro percutor",
+      "descripcion": "Taladro eléctrico de impacto",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 20,
+      "precio": 85000,
+      "imagen": ""
+    },
+    {
+      "id": "he2",
+      "nombre": "Amoladora angular",
+      "descripcion": "Amoladora para corte y desbaste",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 20,
+      "precio": 95000,
+      "imagen": ""
+    },
+    {
+      "id": "he3",
+      "nombre": "Caladora eléctrica",
+      "descripcion": "Sierra caladora para madera",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 20,
+      "precio": 78000,
+      "imagen": ""
+    },
+    {
+      "id": "he4",
+      "nombre": "Atornillador eléctrico",
+      "descripcion": "Atornillador recargable",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 20,
+      "precio": 65000,
+      "imagen": ""
+    },
+    {
+      "id": "he5",
+      "nombre": "Pulidora",
+      "descripcion": "Pulidora para acabados",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 20,
+      "precio": 90000,
+      "imagen": ""
+    },
+    {
+      "id": "he6",
+      "nombre": "Lijadora orbital",
+      "descripcion": "Lijadora eléctrica para madera",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 20,
+      "precio": 70000,
+      "imagen": ""
+    },
+    {
+      "id": "he7",
+      "nombre": "Sierra circular",
+      "descripcion": "Sierra eléctrica para cortes rectos",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 20,
+      "precio": 120000,
+      "imagen": ""
+    },
+    {
+      "id": "he8",
+      "nombre": "Pistola de calor",
+      "descripcion": "Herramienta para aplicar calor",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 20,
+      "precio": 60000,
+      "imagen": ""
+    },
+    {
+      "id": "he9",
+      "nombre": "Multímetro digital",
+      "descripcion": "Medidor de voltaje y corriente",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 19,
+      "precio": 35000,
+      "imagen": ""
+    },
+    {
+      "id": "he10",
+      "nombre": "Soldador eléctrico",
+      "descripcion": "Herramienta para soldar componentes",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 19,
+      "precio": 40000,
+      "imagen": ""
+    },
+    {
+      "id": "he11",
+      "nombre": "Cortadora de cerámica",
+      "descripcion": "Herramienta para cortar cerámica",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 19,
+      "precio": 110000,
+      "imagen": ""
+    },
+    {
+      "id": "he12",
+      "nombre": "Rotomartillo",
+      "descripcion": "Martillo eléctrico para concreto",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 20,
+      "precio": 130000,
+      "imagen": ""
+    },
+    {
+      "id": "he13",
+      "nombre": "Sierra sable",
+      "descripcion": "Sierra eléctrica para cortes rudos",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 20,
+      "precio": 125000,
+      "imagen": ""
+    },
+    {
+      "id": "he14",
+      "nombre": "Compresor de aire",
+      "descripcion": "Compresor portátil",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 20,
+      "precio": 250000,
+      "imagen": ""
+    },
+    {
+      "id": "he15",
+      "nombre": "Pistola de pintura",
+      "descripcion": "Herramienta para pintar superficies",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 20,
+      "precio": 95000,
+      "imagen": ""
+    },
+    {
+      "id": "he16",
+      "nombre": "Aspiradora industrial",
+      "descripcion": "Aspiradora para talleres",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 20,
+      "precio": 180000,
+      "imagen": ""
+    },
+    {
+      "id": "he17",
+      "nombre": "Generador portátil",
+      "descripcion": "Generador eléctrico de emergencia",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 20,
+      "precio": 350000,
+      "imagen": ""
+    },
+    {
+      "id": "he18",
+      "nombre": "Linterna recargable",
+      "descripcion": "Linterna de alta potencia",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 20,
+      "precio": 25000,
+      "imagen": ""
+    },
+    {
+      "id": "he19",
+      "nombre": "Cargador de baterías",
+      "descripcion": "Cargador universal para baterías",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 20,
+      "precio": 40000,
+      "imagen": ""
+    },
+    {
+      "id": "he20",
+      "nombre": "Transformador eléctrico",
+      "descripcion": "Transformador de voltaje",
+      "categoria": "Herramientas Eléctricas",
+      "stock": 20,
+      "precio": 60000,
+      "imagen": ""
+    },
+    {
+      "id": "fd1",
+      "nombre": "Cabezal de ducha",
+      "descripcion": "Cabezal universal para ducha",
+      "categoria": "Fontanería y Duchas",
+      "stock": 20,
+      "precio": 12000,
+      "imagen": ""
+    },
+    {
+      "id": "fd2",
+      "nombre": "Manguera flexible para ducha",
+      "descripcion": "Manguera de repuesto",
+      "categoria": "Fontanería y Duchas",
+      "stock": 19,
+      "precio": 8000,
+      "imagen": ""
+    },
+    {
+      "id": "fd3",
+      "nombre": "Llave mezcladora",
+      "descripcion": "Llave para ducha caliente/fría",
+      "categoria": "Fontanería y Duchas",
+      "stock": 19,
+      "precio": 25000,
+      "imagen": ""
+    },
+    {
+      "id": "fd4",
+      "nombre": "Cartucho de repuesto",
+      "descripcion": "Cartucho para mezcladora",
+      "categoria": "Fontanería y Duchas",
+      "stock": 19,
+      "precio": 9000,
+      "imagen": ""
+    },
+    {
+      "id": "fd5",
+      "nombre": "Soporte de ducha",
+      "descripcion": "Soporte para cabezal de ducha",
+      "categoria": "Fontanería y Duchas",
+      "stock": 20,
+      "precio": 6000,
+      "imagen": ""
+    },
+    {
+      "id": "fd6",
+      "nombre": "Válvula de retención",
+      "descripcion": "Válvula para tubería de agua",
+      "categoria": "Fontanería y Duchas",
+      "stock": 20,
+      "precio": 7000,
+      "imagen": ""
+    },
+    {
+      "id": "fd7",
+      "nombre": "Grifo monomando",
+      "descripcion": "Grifo de una sola llave",
+      "categoria": "Fontanería y Duchas",
+      "stock": 20,
+      "precio": 18000,
+      "imagen": ""
+    },
+    {
+      "id": "fd8",
+      "nombre": "Adaptador de ducha",
+      "descripcion": "Adaptador para manguera",
+      "categoria": "Fontanería y Duchas",
+      "stock": 20,
+      "precio": 4000,
+      "imagen": ""
+    },
+    {
+      "id": "fd9",
+      "nombre": "Filtro de agua para ducha",
+      "descripcion": "Filtro para agua limpia",
+      "categoria": "Fontanería y Duchas",
+      "stock": 20,
+      "precio": 10000,
+      "imagen": ""
+    },
+    {
+      "id": "fd10",
+      "nombre": "Empaque de goma",
+      "descripcion": "Empaque para conexiones",
+      "categoria": "Fontanería y Duchas",
+      "stock": 19,
+      "precio": 30000,
+      "imagen": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.electricoslacabalgata.com%2Fcdn%2Fshop%2Fproducts%2F110-008-09103_390x.jpg%3Fv%3D1627603458&tbnid=4HpP4Xxqi7pZSM&vet=10CAYQxiAoAmoXChMImJ3c8PGKkQMVAAAAAB0AAAAAEAc..i&imgrefurl=https%3A%2F%2Fwww.electricoslacabalgata.com%2Fcollections%2Frepuestos-duchas&docid=5EEMZXR0SkXXFM&w=390&h=390&q=empaque%20ducha&ved=0CAYQxiAoAmoXChMImJ3c8PGKkQMVAAAAAB0AAAAAEAc"
+    },
+    {
+      "id": "fd11",
+      "nombre": "Tubo flexible",
+      "descripcion": "Tubo para instalaciones de ducha",
+      "categoria": "Fontanería y Duchas",
+      "stock": 19,
+      "precio": 9000,
+      "imagen": ""
+    },
+    {
+      "id": "fd12",
+      "nombre": "Codo de PVC",
+      "descripcion": "Codo para tubería de PVC",
+      "categoria": "Fontanería y Duchas",
+      "stock": 20,
+      "precio": 3000,
+      "imagen": ""
+    },
+    {
+      "id": "fd13",
+      "nombre": "Teflón",
+      "descripcion": "Cinta de teflón para sellar",
+      "categoria": "Fontanería y Duchas",
+      "stock": 20,
+      "precio": 1500,
+      "imagen": ""
+    },
+    {
+      "id": "fd14",
+      "nombre": "Reductor de presión",
+      "descripcion": "Reductor para presión de agua",
+      "categoria": "Fontanería y Duchas",
+      "stock": 20,
+      "precio": 8000,
+      "imagen": ""
+    },
+    {
+      "id": "fd15",
+      "nombre": "Ducha eléctrica",
+      "descripcion": "Ducha con resistencia eléctrica",
+      "categoria": "Fontanería y Duchas",
+      "stock": 20,
+      "precio": 35000,
+      "imagen": ""
+    },
+    {
+      "id": "fd16",
+      "nombre": "Interruptor de ducha",
+      "descripcion": "Interruptor para ducha eléctrica",
+      "categoria": "Fontanería y Duchas",
+      "stock": 20,
+      "precio": 5000,
+      "imagen": ""
+    },
+    {
+      "id": "fd17",
+      "nombre": "Caja de conexiones",
+      "descripcion": "Caja para conexiones eléctricas",
+      "categoria": "Fontanería y Duchas",
+      "stock": 20,
+      "precio": 4000,
+      "imagen": ""
+    },
+    {
+      "id": "fd18",
+      "nombre": "Resistencia para ducha",
+      "descripcion": "Resistencia de repuesto",
+      "categoria": "Fontanería y Duchas",
+      "stock": 20,
+      "precio": 7000,
+      "imagen": ""
+    },
+    {
+      "id": "fd19",
+      "nombre": "Dispensador de jabón",
+      "descripcion": "Dispensador para baño",
+      "categoria": "Fontanería y Duchas",
+      "stock": 20,
+      "precio": 9000,
+      "imagen": ""
+    },
+    {
+      "id": "fd20",
+      "nombre": "Tapón de desagüe",
+      "descripcion": "Tapón para desagüe de ducha",
+      "categoria": "Fontanería y Duchas",
+      "stock": 20,
+      "precio": 3000,
+      "imagen": ""
+    },
+    {
+      "id": "oe1",
+      "nombre": "Válvula de seguridad",
+      "descripcion": "Válvula para olla exprés",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 19,
+      "precio": 8000,
+      "imagen": ""
+    },
+    {
+      "id": "oe2",
+      "nombre": "Junta de goma",
+      "descripcion": "Junta para olla exprés",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 20,
+      "precio": 4000,
+      "imagen": ""
+    },
+    {
+      "id": "oe3",
+      "nombre": "Tapa de repuesto",
+      "descripcion": "Tapa para olla exprés",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 20,
+      "precio": 25000,
+      "imagen": ""
+    },
+    {
+      "id": "oe4",
+      "nombre": "Mango de olla",
+      "descripcion": "Mango para olla exprés",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 20,
+      "precio": 6000,
+      "imagen": ""
+    },
+    {
+      "id": "oe5",
+      "nombre": "Tornillo de tapa",
+      "descripcion": "Tornillo para tapa de olla",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 19,
+      "precio": 1000,
+      "imagen": ""
+    },
+    {
+      "id": "oe6",
+      "nombre": "Válvula de presión",
+      "descripcion": "Válvula para regular presión",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 20,
+      "precio": 7000,
+      "imagen": ""
+    },
+    {
+      "id": "oe7",
+      "nombre": "Indicador de presión",
+      "descripcion": "Indicador para olla exprés",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 20,
+      "precio": 5000,
+      "imagen": ""
+    },
+    {
+      "id": "oe8",
+      "nombre": "Base difusora",
+      "descripcion": "Base para olla exprés",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 20,
+      "precio": 12000,
+      "imagen": ""
+    },
+    {
+      "id": "oe9",
+      "nombre": "Empaque de tapa",
+      "descripcion": "Empaque para tapa de olla",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 20,
+      "precio": 3000,
+      "imagen": ""
+    },
+    {
+      "id": "oe10",
+      "nombre": "Válvula de escape",
+      "descripcion": "Válvula para escape de vapor",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 20,
+      "precio": 4000,
+      "imagen": ""
+    },
+    {
+      "id": "oe11",
+      "nombre": "Cierre de seguridad",
+      "descripcion": "Cierre para olla exprés",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 20,
+      "precio": 6000,
+      "imagen": ""
+    },
+    {
+      "id": "oe12",
+      "nombre": "Termostato",
+      "descripcion": "Termostato para olla exprés",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 20,
+      "precio": 9000,
+      "imagen": ""
+    },
+    {
+      "id": "oe13",
+      "nombre": "Tornillo de mango",
+      "descripcion": "Tornillo para mango de olla",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 20,
+      "precio": 1000,
+      "imagen": ""
+    },
+    {
+      "id": "oe14",
+      "nombre": "Filtro de vapor",
+      "descripcion": "Filtro para vapor de olla",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 20,
+      "precio": 3000,
+      "imagen": ""
+    },
+    {
+      "id": "oe15",
+      "nombre": "Disco de presión",
+      "descripcion": "Disco para olla exprés",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 20,
+      "precio": 5000,
+      "imagen": ""
+    },
+    {
+      "id": "oe16",
+      "nombre": "Resorte de válvula",
+      "descripcion": "Resorte para válvula de olla",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 20,
+      "precio": 2000,
+      "imagen": ""
+    },
+    {
+      "id": "oe17",
+      "nombre": "Protector de mango",
+      "descripcion": "Protector para mango de olla",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 20,
+      "precio": 3000,
+      "imagen": ""
+    },
+    {
+      "id": "oe18",
+      "nombre": "Junta de fondo",
+      "descripcion": "Junta para fondo de olla",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 20,
+      "precio": 4000,
+      "imagen": ""
+    },
+    {
+      "id": "oe19",
+      "nombre": "Tornillo de base",
+      "descripcion": "Tornillo para base de olla",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 20,
+      "precio": 1000,
+      "imagen": ""
+    },
+    {
+      "id": "oe20",
+      "nombre": "Indicador de temperatura",
+      "descripcion": "Indicador para olla exprés",
+      "categoria": "Repuestos Ollas Exprés",
+      "stock": 20,
+      "precio": 5000,
+      "imagen": ""
+    },
+    {
+      "id": "rl1",
+      "nombre": "Vaso de licuadora",
+      "descripcion": "Vaso de repuesto para licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 19,
+      "precio": 18000,
+      "imagen": ""
+    },
+    {
+      "id": "rl2",
+      "nombre": "Cuchilla de repuesto",
+      "descripcion": "Cuchilla para licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 20,
+      "precio": 9000,
+      "imagen": ""
+    },
+    {
+      "id": "rl3",
+      "nombre": "Tapa de vaso",
+      "descripcion": "Tapa para vaso de licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 19,
+      "precio": 4000,
+      "imagen": ""
+    },
+    {
+      "id": "rl4",
+      "nombre": "Empaque de cuchilla",
+      "descripcion": "Empaque para cuchilla de licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 20,
+      "precio": 2000,
+      "imagen": ""
+    },
+    {
+      "id": "rl5",
+      "nombre": "Motor de licuadora",
+      "descripcion": "Motor de repuesto para licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 20,
+      "precio": 35000,
+      "imagen": ""
+    },
+    {
+      "id": "rl6",
+      "nombre": "Base de motor",
+      "descripcion": "Base para motor de licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 20,
+      "precio": 7000,
+      "imagen": ""
+    },
+    {
+      "id": "rl7",
+      "nombre": "Interruptor de velocidad",
+      "descripcion": "Interruptor para licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 20,
+      "precio": 3000,
+      "imagen": ""
+    },
+    {
+      "id": "rl8",
+      "nombre": "Cable de alimentación",
+      "descripcion": "Cable para licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 20,
+      "precio": 2500,
+      "imagen": ""
+    },
+    {
+      "id": "rl9",
+      "nombre": "Engranaje de vaso",
+      "descripcion": "Engranaje para vaso de licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 20,
+      "precio": 3500,
+      "imagen": ""
+    },
+    {
+      "id": "rl10",
+      "nombre": "Junta de goma",
+      "descripcion": "Junta para licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 20,
+      "precio": 2000,
+      "imagen": ""
+    },
+    {
+      "id": "rl11",
+      "nombre": "Botón de encendido",
+      "descripcion": "Botón para licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 20,
+      "precio": 1500,
+      "imagen": ""
+    },
+    {
+      "id": "rl12",
+      "nombre": "Protector de cuchilla",
+      "descripcion": "Protector para cuchilla de licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 20,
+      "precio": 2500,
+      "imagen": ""
+    },
+    {
+      "id": "rl13",
+      "nombre": "Filtro de pulpa",
+      "descripcion": "Filtro para licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 20,
+      "precio": 3000,
+      "imagen": ""
+    },
+    {
+      "id": "rl14",
+      "nombre": "Soporte de vaso",
+      "descripcion": "Soporte para vaso de licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 20,
+      "precio": 3500,
+      "imagen": ""
+    },
+    {
+      "id": "rl15",
+      "nombre": "Tornillo de base",
+      "descripcion": "Tornillo para base de licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 20,
+      "precio": 1000,
+      "imagen": ""
+    },
+    {
+      "id": "rl16",
+      "nombre": "Resorte de botón",
+      "descripcion": "Resorte para botón de licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 20,
+      "precio": 1000,
+      "imagen": ""
+    },
+    {
+      "id": "rl17",
+      "nombre": "Placa de motor",
+      "descripcion": "Placa para motor de licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 19,
+      "precio": 4000,
+      "imagen": ""
+    },
+    {
+      "id": "rl18",
+      "nombre": "Protector térmico",
+      "descripcion": "Protector para licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 20,
+      "precio": 3000,
+      "imagen": ""
+    },
+    {
+      "id": "rl19",
+      "nombre": "Eje de cuchilla",
+      "descripcion": "Eje para cuchilla de licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 20,
+      "precio": 2500,
+      "imagen": ""
+    },
+    {
+      "id": "rl20",
+      "nombre": "Adaptador de vaso",
+      "descripcion": "Adaptador para vaso de licuadora",
+      "categoria": "Repuestos Licuadoras",
+      "stock": 20,
+      "precio": 2000,
+      "imagen": ""
+    },
+    {
+      "id": "migt2mcl2paq9mbbvcr",
+      "nombre": "Destornillador estrella",
+      "descripcion": "Destornillador estrella",
+      "categoria": "Herramientas Manuales",
+      "stock": 17,
+      "precio": 5500,
+      "imagen": "data:image/png;base64,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",
+      "fechaCreacion": "2025-11-27T02:19:42.117Z"
+    }
+  ],
+  "ventas": [
+    {
+      "id": "mic2qomfhlw2e283h34",
+      "fecha": "2025-11-23T18:51:30.471Z",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "Alfonsobrian7@outlook.com",
+        "telefono": "3227375425"
+      },
+      "items": [
+        {
+          "idProducto": "mic2q25y0xuvnq2vg8zi",
+          "nombre": "destornillados estella",
+          "precio": 7000,
+          "cantidad": 1,
+          "subtotal": 7000
+        }
+      ],
+      "total": 7000,
+      "estado": "completada"
+    },
+    {
+      "id": "mic2rzzznqa0hk00tq",
+      "fecha": "2025-11-23T18:52:31.871Z",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "Alfonsobrian7@outlook.com",
+        "telefono": "3227375425"
+      },
+      "items": [
+        {
+          "idProducto": "mic2q25y0xuvnq2vg8zi",
+          "nombre": "destornillados estella",
+          "precio": 7000,
+          "cantidad": 3,
+          "subtotal": 21000
+        }
+      ],
+      "total": 21000,
+      "estado": "completada"
+    },
+    {
+      "id": "mic4s28zrz59nvdjl7",
+      "fecha": "2025-11-23T19:48:34.019Z",
+      "cliente": {
+        "nombre": "carolina",
+        "email": "",
+        "telefono": "3224575415"
+      },
+      "items": [
+        {
+          "idProducto": "mic2q25y0xuvnq2vg8zi",
+          "nombre": "destornillados estella",
+          "precio": 7000,
+          "cantidad": 2,
+          "subtotal": 14000
+        }
+      ],
+      "total": 14000,
+      "estado": "completada"
+    },
+    {
+      "id": "mic54vuwerlpgfn1fzh",
+      "fecha": "2025-11-23T19:58:32.264Z",
+      "cliente": {
+        "nombre": "paola gonzales",
+        "email": "",
+        "telefono": "32273754654"
+      },
+      "items": [
+        {
+          "idProducto": "mic5425oix0zcbbd7j",
+          "nombre": "Térmico ",
+          "precio": 7000,
+          "cantidad": 2,
+          "subtotal": 14000
+        }
+      ],
+      "total": 14000,
+      "estado": "completada"
+    },
+    {
+      "id": "mic6g43qeqb8g66royd",
+      "fecha": "2025-11-23T20:35:15.789Z",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "Alfonsobrian7@outlook.com",
+        "telefono": "32273754654"
+      },
+      "items": [
+        {
+          "idProducto": "mic5425oix0zcbbd7j",
+          "nombre": "Térmico ",
+          "precio": 7000,
+          "cantidad": 1,
+          "subtotal": 7000
+        }
+      ],
+      "total": 7000,
+      "estado": "completada"
+    },
+    {
+      "id": "micgx12ezvsq3zcy3un",
+      "fecha": "2025-11-24T01:28:21.159Z",
+      "cliente": {
+        "nombre": "karol gomez",
+        "email": "karollsfoiagomez@gmail.com",
+        "telefono": "3162240795"
+      },
+      "items": [
+        {
+          "idProducto": "mic5425oix0zcbbd7j",
+          "nombre": "Térmico ",
+          "precio": 7000,
+          "cantidad": 3,
+          "subtotal": 21000
+        },
+        {
+          "idProducto": "mic4zdun2osl78mlpxj",
+          "nombre": "Martillo grande",
+          "precio": 15000,
+          "cantidad": 1,
+          "subtotal": 15000
+        },
+        {
+          "idProducto": "mic2q25y0xuvnq2vg8zi",
+          "nombre": "destornillados estella",
+          "precio": 7000,
+          "cantidad": 2,
+          "subtotal": 14000
+        }
+      ],
+      "total": 50000,
+      "estado": "completada"
+    },
+    {
+      "id": "mid4aou73kbrmkhgxz8",
+      "fecha": "2025-11-24T12:22:49.664Z",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "",
+        "telefono": "3227375425"
+      },
+      "items": [
+        {
+          "idProducto": "oe1",
+          "nombre": "Válvula de seguridad",
+          "precio": 8000,
+          "cantidad": 1,
+          "subtotal": 8000
+        },
+        {
+          "idProducto": "oe5",
+          "nombre": "Tornillo de tapa",
+          "precio": 1000,
+          "cantidad": 1,
+          "subtotal": 1000
+        },
+        {
+          "idProducto": "rl1",
+          "nombre": "Vaso de licuadora",
+          "precio": 18000,
+          "cantidad": 1,
+          "subtotal": 18000
+        },
+        {
+          "idProducto": "rl3",
+          "nombre": "Tapa de vaso",
+          "precio": 4000,
+          "cantidad": 1,
+          "subtotal": 4000
+        },
+        {
+          "idProducto": "rl17",
+          "nombre": "Placa de motor",
+          "precio": 4000,
+          "cantidad": 1,
+          "subtotal": 4000
+        }
+      ],
+      "total": 35000,
+      "estado": "completada"
+    },
+    {
+      "id": "mid6nzx1u4t8digygb",
+      "fecha": "2025-11-24T13:29:09.782Z",
+      "cliente": {
+        "nombre": "brian",
+        "email": "",
+        "telefono": ""
+      },
+      "items": [
+        {
+          "idProducto": "fd10",
+          "nombre": "Empaque de goma",
+          "precio": 30000,
+          "cantidad": 1,
+          "subtotal": 30000
+        },
+        {
+          "idProducto": "hm4",
+          "nombre": "Llave ajustable",
+          "precio": 9000,
+          "cantidad": 1,
+          "subtotal": 9000
+        },
+        {
+          "idProducto": "fd11",
+          "nombre": "Tubo flexible",
+          "precio": 9000,
+          "cantidad": 1,
+          "subtotal": 9000
+        }
+      ],
+      "total": 48000,
+      "estado": "completada"
+    },
+    {
+      "id": "mid6pypa62qhb62rzu6",
+      "fecha": "2025-11-24T13:30:41.518Z",
+      "cliente": {
+        "nombre": "brianova",
+        "email": "",
+        "telefono": ""
+      },
+      "items": [
+        {
+          "idProducto": "hm3",
+          "nombre": "Destornillador estrella",
+          "precio": 5500,
+          "cantidad": 1,
+          "subtotal": 5500
+        }
+      ],
+      "total": 5500,
+      "estado": "completada"
+    },
+    {
+      "id": "mid6qpbeuummgt4frq",
+      "fecha": "2025-11-24T13:31:16.010Z",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "",
+        "telefono": ""
+      },
+      "items": [
+        {
+          "idProducto": "hm6",
+          "nombre": "Alicate universal",
+          "precio": 8000,
+          "cantidad": 1,
+          "subtotal": 8000
+        }
+      ],
+      "total": 8000,
+      "estado": "completada"
+    },
+    {
+      "id": "mid6qw3jywfts31jn3",
+      "fecha": "2025-11-24T13:31:24.799Z",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "",
+        "telefono": ""
+      },
+      "items": [
+        {
+          "idProducto": "hm2",
+          "nombre": "Destornillador plano",
+          "precio": 5000,
+          "cantidad": 1,
+          "subtotal": 5000
+        }
+      ],
+      "total": 5000,
+      "estado": "completada"
+    },
+    {
+      "id": "mid6sivb04engwmynyg2",
+      "fecha": "2025-11-24T13:32:40.967Z",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "",
+        "telefono": ""
+      },
+      "items": [
+        {
+          "idProducto": "hm2",
+          "nombre": "Destornillador plano",
+          "precio": 5000,
+          "cantidad": 1,
+          "subtotal": 5000
+        }
+      ],
+      "total": 5000,
+      "estado": "completada"
+    },
+    {
+      "id": "mid6t4i9mk0sfag363k",
+      "fecha": "2025-11-24T13:33:09.009Z",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "",
+        "telefono": ""
+      },
+      "items": [
+        {
+          "idProducto": "hm2",
+          "nombre": "Destornillador plano",
+          "precio": 5000,
+          "cantidad": 1,
+          "subtotal": 5000
+        }
+      ],
+      "total": 5000,
+      "estado": "completada"
+    },
+    {
+      "id": "mid6ts8asvk08f8jct",
+      "fecha": "2025-11-24T13:33:39.755Z",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "",
+        "telefono": ""
+      },
+      "items": [
+        {
+          "idProducto": "hm2",
+          "nombre": "Destornillador plano",
+          "precio": 5000,
+          "cantidad": 1,
+          "subtotal": 5000
+        }
+      ],
+      "total": 5000,
+      "estado": "completada"
+    },
+    {
+      "id": "miejgmxbicaphkfxn7e",
+      "fecha": "2025-11-25T12:15:07.536Z",
+      "cliente": {
+        "nombre": "b",
+        "email": "karollsofiagomez@gmail.com",
+        "telefono": "bv"
+      },
+      "items": [
+        {
+          "idProducto": "hm1",
+          "nombre": "Martillo de garra",
+          "precio": 12000,
+          "cantidad": 2,
+          "subtotal": 24000
+        }
+      ],
+      "total": 24000,
+      "estado": "completada"
+    },
+    {
+      "id": "mienuak58sss2c4w5cb",
+      "fecha": "2025-11-25T14:17:43.157Z",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "Alfonsobrian7@outlook.com",
+        "telefono": "3227375425"
+      },
+      "items": [
+        {
+          "idProducto": "hm1",
+          "nombre": "Martillo de garra",
+          "precio": 12000,
+          "cantidad": 1,
+          "subtotal": 12000
+        }
+      ],
+      "total": 12000,
+      "estado": "completada"
+    },
+    {
+      "id": "migt5onjmnim79h4sfa",
+      "fecha": "2025-11-27T02:22:05.071Z",
+      "cliente": {
+        "nombre": "karoll sofia",
+        "email": "karoll12@gmail.com",
+        "telefono": "32278545115"
+      },
+      "items": [
+        {
+          "idProducto": "migt2mcl2paq9mbbvcr",
+          "nombre": "Destornillador estrella",
+          "precio": 5500,
+          "cantidad": 3,
+          "subtotal": 16500
+        }
+      ],
+      "total": 16500,
+      "estado": "completada"
+    },
+    {
+      "id": "mihexix754xlprjupip",
+      "fecha": "2025-11-27T12:31:35.947Z",
+      "cliente": {
+        "nombre": "gabriela rodriguez",
+        "email": "gabi@gmail.com",
+        "telefono": "322587415"
+      },
+      "items": [
+        {
+          "idProducto": "hm1",
+          "nombre": "Martillo de garra",
+          "precio": 12000,
+          "cantidad": 1,
+          "subtotal": 12000
+        },
+        {
+          "idProducto": "hm2",
+          "nombre": "Destornillador plano",
+          "precio": 5000,
+          "cantidad": 1,
+          "subtotal": 5000
+        },
+        {
+          "idProducto": "hm4",
+          "nombre": "Llave ajustable",
+          "precio": 9000,
+          "cantidad": 2,
+          "subtotal": 18000
+        },
+        {
+          "idProducto": "hm6",
+          "nombre": "Alicate universal",
+          "precio": 8000,
+          "cantidad": 1,
+          "subtotal": 8000
+        },
+        {
+          "idProducto": "hm7",
+          "nombre": "Alicate de corte",
+          "precio": 8500,
+          "cantidad": 1,
+          "subtotal": 8500
+        }
+      ],
+      "total": 51500,
+      "estado": "completada"
+    },
+    {
+      "id": "mii9mggk4sa1qes0vpi",
+      "fecha": "2025-11-28T02:50:47.636Z",
+      "cliente": {
+        "nombre": "kilian coeny rodriguez",
+        "email": "k@gmail.com",
+        "telefono": "3232685654"
+      },
+      "items": [
+        {
+          "idProducto": "hm4",
+          "nombre": "Llave ajustable",
+          "precio": 9000,
+          "cantidad": 1,
+          "subtotal": 9000
+        },
+        {
+          "idProducto": "hm1",
+          "nombre": "Martillo de garra",
+          "precio": 12000,
+          "cantidad": 1,
+          "subtotal": 12000
+        }
+      ],
+      "total": 21000,
+      "estado": "completada"
+    },
+    {
+      "id": "mii9y3nz37j3k3b9ndw",
+      "fecha": "2025-11-28T02:59:50.927Z",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "Alfonsobrian7@outlook.com",
+        "telefono": "32278545115"
+      },
+      "items": [
+        {
+          "idProducto": "hm1",
+          "nombre": "Martillo de garra",
+          "precio": 12000,
+          "cantidad": 1,
+          "subtotal": 12000
+        },
+        {
+          "idProducto": "hm2",
+          "nombre": "Destornillador plano",
+          "precio": 5000,
+          "cantidad": 1,
+          "subtotal": 5000
+        },
+        {
+          "idProducto": "hm4",
+          "nombre": "Llave ajustable",
+          "precio": 9000,
+          "cantidad": 1,
+          "subtotal": 9000
+        },
+        {
+          "idProducto": "hm6",
+          "nombre": "Alicate universal",
+          "precio": 8000,
+          "cantidad": 1,
+          "subtotal": 8000
+        },
+        {
+          "idProducto": "hm7",
+          "nombre": "Alicate de corte",
+          "precio": 8500,
+          "cantidad": 1,
+          "subtotal": 8500
+        },
+        {
+          "idProducto": "hm8",
+          "nombre": "Serrucho",
+          "precio": 11000,
+          "cantidad": 1,
+          "subtotal": 11000
+        }
+      ],
+      "total": 53500,
+      "estado": "completada"
+    },
+    {
+      "id": "miia22mwlg2w8jq8uwp",
+      "fecha": "2025-11-28T03:02:56.216Z",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "Alfonsobrian7@outlook.com",
+        "telefono": "3227375425"
+      },
+      "items": [
+        {
+          "idProducto": "hm1",
+          "nombre": "Martillo de garra",
+          "precio": 12000,
+          "cantidad": 1,
+          "subtotal": 12000
+        },
+        {
+          "idProducto": "he9",
+          "nombre": "Multímetro digital",
+          "precio": 35000,
+          "cantidad": 1,
+          "subtotal": 35000
+        },
+        {
+          "idProducto": "he10",
+          "nombre": "Soldador eléctrico",
+          "precio": 40000,
+          "cantidad": 1,
+          "subtotal": 40000
+        },
+        {
+          "idProducto": "he11",
+          "nombre": "Cortadora de cerámica",
+          "precio": 110000,
+          "cantidad": 1,
+          "subtotal": 110000
+        },
+        {
+          "idProducto": "fd3",
+          "nombre": "Llave mezcladora",
+          "precio": 25000,
+          "cantidad": 1,
+          "subtotal": 25000
+        },
+        {
+          "idProducto": "fd2",
+          "nombre": "Manguera flexible para ducha",
+          "precio": 8000,
+          "cantidad": 1,
+          "subtotal": 8000
+        },
+        {
+          "idProducto": "fd4",
+          "nombre": "Cartucho de repuesto",
+          "precio": 9000,
+          "cantidad": 1,
+          "subtotal": 9000
+        }
+      ],
+      "total": 239000,
+      "estado": "completada"
+    },
+    {
+      "id": "miiwo542lnpkt0o9r7",
+      "fecha": "2025-11-28T13:35:57.410Z",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "Alfonsobrian7@outlook.com",
+        "telefono": "32278545115"
+      },
+      "items": [
+        {
+          "idProducto": "hm1",
+          "nombre": "Martillo de garra",
+          "precio": 12000,
+          "cantidad": 1,
+          "subtotal": 12000
+        },
+        {
+          "idProducto": "hm2",
+          "nombre": "Destornillador plano",
+          "precio": 5000,
+          "cantidad": 1,
+          "subtotal": 5000
+        },
+        {
+          "idProducto": "hm4",
+          "nombre": "Llave ajustable",
+          "precio": 9000,
+          "cantidad": 1,
+          "subtotal": 9000
+        }
+      ],
+      "total": 26000,
+      "estado": "completada"
+    },
+    {
+      "id": "mil67v53ptcdruutwn",
+      "fecha": "2025-11-30T03:38:46.503Z",
+      "cliente": {
+        "nombre": "gabriela rodriguez",
+        "email": "Alfonsobrian7@outlook.com",
+        "telefono": "4545"
+      },
+      "items": [
+        {
+          "idProducto": "hm1",
+          "nombre": "Martillo de garra",
+          "precio": 12000,
+          "cantidad": 11,
+          "subtotal": 132000
+        }
+      ],
+      "total": 132000,
+      "estado": "completada"
+    },
+    {
+      "id": "mil69yb7tx8qlwri68a",
+      "fecha": "2025-11-30T03:40:23.923Z",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "Alfonsobrian7@outlook.com",
+        "telefono": "3227375425"
+      },
+      "items": [
+        {
+          "idProducto": "hm2",
+          "nombre": "Destornillador plano",
+          "precio": 5000,
+          "cantidad": 11,
+          "subtotal": 55000
+        }
+      ],
+      "total": 55000,
+      "estado": "completada"
+    }
+  ],
+  "categorias": [
+    "Herramientas Manuales",
+    "Herramientas Eléctricas",
+    "Fontanería y Duchas",
+    "Repuestos Ollas Exprés",
+    "Repuestos Licuadoras"
+  ],
+  "reembolsos": [
+    {
+      "id": "mic4e4ozz3sao79tod",
+      "idVenta": "mic2qomfhlw2e283h34",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "Alfonsobrian7@outlook.com",
+        "telefono": "3227375425"
+      },
+      "motivo": "Producto defectuoso",
+      "monto": 7000,
+      "notas": "",
+      "estado": "aprobado",
+      "fechaCreacion": "2025-11-23T19:37:44.003Z",
+      "fechaAprobacion": "2025-11-23T19:37:52.874Z"
+    },
+    {
+      "id": "mic65ta2dypvjqm62xq",
+      "idVenta": "mic2qomfhlw2e283h34",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "Alfonsobrian7@outlook.com",
+        "telefono": "3227375425"
+      },
+      "motivo": "Producto defectuoso",
+      "monto": 7000,
+      "notas": "",
+      "estado": "rechazado",
+      "fechaCreacion": "2025-11-23T20:27:15.195Z",
+      "fechaAprobacion": null
+    },
+    {
+      "id": "mic6gnms18i2ga3u2bj",
+      "idVenta": "mic2qomfhlw2e283h34",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "Alfonsobrian7@outlook.com",
+        "telefono": "3227375425"
+      },
+      "motivo": "Cambio de opinión",
+      "monto": 7000,
+      "notas": "",
+      "estado": "rechazado",
+      "fechaCreacion": "2025-11-23T20:35:41.092Z",
+      "fechaAprobacion": null
+    },
+    {
+      "id": "miccezdby5tez1h1zo",
+      "idVenta": "mic2qomfhlw2e283h34",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "Alfonsobrian7@outlook.com",
+        "telefono": "3227375425"
+      },
+      "motivo": "Producto defectuoso",
+      "monto": 7000,
+      "notas": "",
+      "estado": "rechazado",
+      "fechaCreacion": "2025-11-23T23:22:20.688Z",
+      "fechaAprobacion": null
+    },
+    {
+      "id": "micclzvitwyw2mfdngo",
+      "idVenta": "mic2qomfhlw2e283h34",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "Alfonsobrian7@outlook.com",
+        "telefono": "3227375425"
+      },
+      "motivo": "Cambio de opinión",
+      "monto": 7000,
+      "notas": "",
+      "estado": "aprobado",
+      "fechaCreacion": "2025-11-23T23:27:47.934Z",
+      "fechaAprobacion": "2025-11-23T23:27:52.318Z"
+    },
+    {
+      "id": "micgyemgx348wn3mk5q",
+      "idVenta": "micgx12ezvsq3zcy3un",
+      "cliente": {
+        "nombre": "karol gomez",
+        "email": "karollsfoiagomez@gmail.com",
+        "telefono": "3162240795"
+      },
+      "motivo": "Producto defectuoso",
+      "monto": 50000,
+      "notas": "",
+      "estado": "rechazado",
+      "fechaCreacion": "2025-11-24T01:29:25.384Z",
+      "fechaAprobacion": null
+    },
+    {
+      "id": "miejhsphb6q1e7062pk",
+      "idVenta": "miejgmxbicaphkfxn7e",
+      "cliente": {
+        "nombre": "b",
+        "email": "karollsofiagomez@gmail.com",
+        "telefono": "bv"
+      },
+      "motivo": "Producto defectuoso",
+      "monto": 24000,
+      "notas": "",
+      "estado": "aprobado",
+      "fechaCreacion": "2025-11-25T12:16:01.685Z",
+      "fechaAprobacion": "2025-11-25T12:16:05.779Z"
+    },
+    {
+      "id": "miia3hple3zvxpf1ff",
+      "idVenta": "mic2qomfhlw2e283h34",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "Alfonsobrian7@outlook.com",
+        "telefono": "3227375425"
+      },
+      "motivo": "Producto defectuoso",
+      "monto": 7000,
+      "notas": "",
+      "estado": "rechazado",
+      "fechaCreacion": "2025-11-28T03:04:02.409Z",
+      "fechaAprobacion": null
+    },
+    {
+      "id": "miia41p4sy4pjtg6gga",
+      "idVenta": "miia22mwlg2w8jq8uwp",
+      "cliente": {
+        "nombre": "brian rodriguez",
+        "email": "Alfonsobrian7@outlook.com",
+        "telefono": "3227375425"
+      },
+      "motivo": "Cambio de opinión",
+      "monto": 239000,
+      "notas": "",
+      "estado": "aprobado",
+      "fechaCreacion": "2025-11-28T03:04:28.312Z",
+      "fechaAprobacion": "2025-11-28T03:04:33.310Z"
+    }
+  ],
+  "config": {
+    "siteName": "Ferretería BriaNova.",
+    "version": "1.0.0",
+    "currency": "COP"
+  },
+  "dias": [
+    {
+      "id": "mii9x873v6hmwk6wc2",
+      "fecha": "2025-11-28",
+      "inicio": "2025-11-28T02:59:10.143Z",
+      "cierre": "2025-11-28T03:08:00.844Z",
+      "estado": "cerrado",
+      "ventas": [
+        "mii9y3nz37j3k3b9ndw",
+        "miia22mwlg2w8jq8uwp"
+      ],
+      "total": 292500
+    },
+    {
+      "id": "miiwns28w13f2tk8ga",
+      "fecha": "2025-11-28",
+      "inicio": "2025-11-28T13:35:40.496Z",
+      "cierre": "2025-11-28T13:39:08.661Z",
+      "estado": "cerrado",
+      "ventas": [
+        "miiwo542lnpkt0o9r7"
+      ],
+      "total": 26000
+    },
+    {
+      "id": "mil691txqz4mpie0zzn",
+      "fecha": "2025-11-30",
+      "inicio": "2025-11-30T03:39:41.829Z",
+      "cierre": "2025-11-30T03:40:28.793Z",
+      "estado": "cerrado",
+      "ventas": [
+        "mil69yb7tx8qlwri68a"
+      ],
+      "total": 55000
+    },
+    {
+      "id": "mioubpxh54snjmvunot",
+      "fecha": "2025-12-02",
+      "inicio": "2025-12-02T17:16:55.684Z",
+      "cierre": "2025-12-02T17:17:00.439Z",
+      "estado": "cerrado",
+      "ventas": [],
+      "total": 0
+    },
+    {
+      "id": "mipb4ng055ev0wq0lp5",
+      "fecha": "2025-12-03",
+      "inicio": "2025-12-03T01:07:19.344Z",
+      "cierre": "2025-12-03T01:09:31.336Z",
+      "estado": "cerrado",
+      "ventas": [],
+      "total": 0
+    },
+    {
+      "id": "mipbml8jigrk6usiief",
+      "fecha": "2025-12-03",
+      "inicio": "2025-12-03T01:21:16.291Z",
+      "cierre": "2025-12-03T01:21:49.364Z",
+      "estado": "cerrado",
+      "ventas": [],
+      "total": 0
+    },
+    {
+      "id": "mirfs0iuys3payg0c8",
+      "fecha": "2025-12-04",
+      "inicio": "2025-12-04T12:53:00.197Z",
+      "cierre": "2025-12-04T12:58:40.611Z",
+      "estado": "cerrado",
+      "ventas": [],
+      "total": 0
+    },
+    {
+      "id": "mirg5a3cmdkjbzs5eza",
+      "fecha": "2025-12-04",
+      "inicio": "2025-12-04T13:03:19.128Z",
+      "cierre": null,
+      "estado": "abierto",
+      "ventas": [],
+      "total": 0
+    }
+  ],
+  "reparaciones": [
+    {
+      "id": "rep001",
+      "orden": "R-001",
+      "fechaIngreso": "2025-11-20T10:30:00.000Z",
+      "cliente": {
+        "id": "cli001",
+        "nombre": "Carlos Méndez",
+        "telefono": "3105555001",
+        "email": "carlos.mendez@email.com"
+      },
+      "tipo": "Laptop",
+      "equipo": "Laptop HP Pavilion",
+      "marca": "HP",
+      "modelo": "Pavilion 15",
+      "serial": "5CD123456789",
+      "estadoFisico": "Buen estado, pantalla con grieta",
+      "accesorios": "Cargador original, funda",
+      "fallaReportada": "Pantalla rota, equipo enciende normalmente",
+      "observacionesTecnico": "Cambio de pantalla recomendado. Presupuesto: $350.000",
+      "diagnostico": "Pantalla LCD dañada. Placa madre en buen estado",
+      "costoEstimado": 350000,
+      "garantia": "3 meses en pantalla",
+      "fechaEntregaEstimada": "2025-11-27T18:00:00.000Z",
+      "tecnicoAsignado": "tec001",
+      "fotos": [],
+      "estado": "Entregado",
+      "seguimiento": []
+    },
+    {
+      "id": "rep002",
+      "orden": "R-002",
+      "fechaIngreso": "2025-11-22T14:15:00.000Z",
+      "cliente": {
+        "id": "cli002",
+        "nombre": "María García López",
+        "telefono": "3115555002",
+        "email": "maria.garcia@email.com"
+      },
+      "tipo": "Computadora",
+      "equipo": "PC Escritorio Dell",
+      "marca": "Dell",
+      "modelo": "Optiplex 7090",
+      "serial": "DEL456789012",
+      "estadoFisico": "Excelente estado físico",
+      "accesorios": "Cables de poder, sin periféricos",
+      "fallaReportada": "No enciende, indicadores sin luz",
+      "observacionesTecnico": "Fuente de poder defectuosa. Reemplazada exitosamente",
+      "diagnostico": "Fuente de alimentación quemada - REPARADA",
+      "costoEstimado": 180000,
+      "garantia": "6 meses",
+      "fechaEntregaEstimada": "2025-11-25T17:00:00.000Z",
+      "tecnicoAsignado": "tec001",
+      "fotos": [],
+      "estado": "Listo",
+      "seguimiento": []
+    },
+    {
+      "id": "rep003",
+      "orden": "R-003",
+      "fechaIngreso": "2025-11-24T09:00:00.000Z",
+      "cliente": {
+        "id": "cli003",
+        "nombre": "Juan Carlos Rodríguez",
+        "telefono": "3125555003",
+        "email": "juan.rodriguez@email.com"
+      },
+      "tipo": "Impresora",
+      "equipo": "Impresora HP LaserJet",
+      "marca": "HP",
+      "modelo": "M404n",
+      "serial": "PRNTR789456",
+      "estadoFisico": "Buen estado, con desgaste normal",
+      "accesorios": "Cable de poder, cartucho de toner",
+      "fallaReportada": "Atascos frecuentes de papel",
+      "observacionesTecnico": "Limpieza de rodillos. Cambio de guías de papel",
+      "diagnostico": "Rodillos desgastados - REPARADA",
+      "costoEstimado": 95000,
+      "garantia": "3 meses",
+      "fechaEntregaEstimada": "2025-11-26T16:30:00.000Z",
+      "tecnicoAsignado": "tec001",
+      "fotos": [],
+      "estado": "Recibido",
+      "seguimiento": []
+    },
+    {
+      "id": "rep004",
+      "orden": "R-004",
+      "fechaIngreso": "2025-11-25T11:20:00.000Z",
+      "cliente": {
+        "id": "cli004",
+        "nombre": "Sandra Martínez",
+        "telefono": "3135555004",
+        "email": "sandra.martinez@email.com"
+      },
+      "tipo": "Monitor",
+      "equipo": "Monitor LG 24 pulgadas",
+      "marca": "LG",
+      "modelo": "24UP550",
+      "serial": "MON567890",
+      "estadoFisico": "Buen estado, pequeño rayón en bisel",
+      "accesorios": "Cable HDMI, cable de poder",
+      "fallaReportada": "Líneas horizontales en pantalla",
+      "observacionesTecnico": "Pendiente diagnóstico",
+      "diagnostico": "Posible falla en controladora o LCD",
+      "costoEstimado": 0,
+      "garantia": "",
+      "fechaEntregaEstimada": null,
+      "tecnicoAsignado": "tec001",
+      "fotos": [],
+      "estado": "En Reparación",
+      "seguimiento": []
+    },
+    {
+      "id": "rep005",
+      "orden": "R-005",
+      "fechaIngreso": "2025-11-18T15:45:00.000Z",
+      "cliente": {
+        "id": "cli005",
+        "nombre": "Roberto Fernández",
+        "telefono": "3145555005",
+        "email": "roberto.fernandez@email.com"
+      },
+      "tipo": "Teclado",
+      "equipo": "Teclado Mecánico Corsair",
+      "marca": "Corsair",
+      "modelo": "K95 Platinum",
+      "serial": "KEY123456",
+      "estadoFisico": "Excelente estado",
+      "accesorios": "Cable USB, manual",
+      "fallaReportada": "Teclas Q y W no responden",
+      "observacionesTecnico": "Cambio de switches completado",
+      "diagnostico": "Switches defectuosos - REPARADO",
+      "costoEstimado": 85000,
+      "garantia": "1 año",
+      "fechaEntregaEstimada": "2025-11-28T12:00:00.000Z",
+      "tecnicoAsignado": "tec002",
+      "fotos": [],
+      "estado": "Entregado",
+      "seguimiento": []
+    },
+    {
+      "id": "mil2bmr2n19fp8ypbr",
+      "orden": "R-383790",
+      "fechaIngreso": "2025-11-30T01:49:43.790Z",
+      "cliente": {
+        "id": "mil2bmr2wfs0zbrl9mo",
+        "nombre": "Carlos Méndez",
+        "telefono": "3105555001",
+        "email": "carlos.mendez@email.com"
+      },
+      "tipo": "Laptop",
+      "equipo": "Laptop HP Pavilion",
+      "marca": "HP",
+      "modelo": "Pavilion 15",
+      "serial": "5CD123456789",
+      "estadoFisico": "",
+      "accesorios": "",
+      "fallaReportada": "Pantalla rota, equipo enciende normalmente",
+      "observacionesTecnico": "",
+      "diagnostico": "",
+      "costoEstimado": 0,
+      "garantia": "",
+      "fechaEntregaEstimada": null,
+      "tecnicoAsignado": "tec003",
+      "fotos": [],
+      "estado": "Recibido",
+      "seguimiento": []
+    },
+    {
+      "id": "mil2btqonbiln07xy8",
+      "orden": "R-392848",
+      "fechaIngreso": "2025-11-30T01:49:52.848Z",
+      "cliente": {
+        "id": "mil2btqoy1omwn1afdb",
+        "nombre": "Sandra Martínez",
+        "telefono": "3135555004",
+        "email": "sandra.martinez@email.com"
+      },
+      "tipo": "Monitor",
+      "equipo": "Monitor LG 24 pulgadas",
+      "marca": "LG",
+      "modelo": "24UP550",
+      "serial": "MON567890",
+      "estadoFisico": "",
+      "accesorios": "",
+      "fallaReportada": "Líneas horizontales en pantalla",
+      "observacionesTecnico": "",
+      "diagnostico": "",
+      "costoEstimado": 0,
+      "garantia": "",
+      "fechaEntregaEstimada": null,
+      "tecnicoAsignado": "tec003",
+      "fotos": [],
+      "estado": "Recibido",
+      "seguimiento": []
+    }
+  ],
+  "historial_reparaciones": [
+    {
+      "id": "hist001",
+      "reparacionId": "rep001",
+      "fecha": "2025-11-20T10:30:00.000Z",
+      "estado": "Recibido",
+      "nota": "Equipo recibido en taller",
+      "usuario": "admin"
+    },
+    {
+      "id": "hist002",
+      "reparacionId": "rep001",
+      "fecha": "2025-11-21T09:00:00.000Z",
+      "estado": "Diagnóstico",
+      "nota": "Diagnóstico completado. Pantalla dañada confirmada",
+      "usuario": "michael"
+    },
+    {
+      "id": "hist003",
+      "reparacionId": "rep001",
+      "fecha": "2025-11-22T14:30:00.000Z",
+      "estado": "En Reparación",
+      "nota": "Iniciado cambio de pantalla",
+      "usuario": "michael"
+    },
+    {
+      "id": "hist004",
+      "reparacionId": "rep002",
+      "fecha": "2025-11-22T14:15:00.000Z",
+      "estado": "Recibido",
+      "nota": "Computadora de escritorio recibida",
+      "usuario": "admin"
+    },
+    {
+      "id": "hist005",
+      "reparacionId": "rep002",
+      "fecha": "2025-11-23T10:00:00.000Z",
+      "estado": "Diagnóstico",
+      "nota": "Fuente de poder identificada como defectuosa",
+      "usuario": "carlos"
+    },
+    {
+      "id": "hist006",
+      "reparacionId": "rep002",
+      "fecha": "2025-11-23T16:00:00.000Z",
+      "estado": "En Reparación",
+      "nota": "Fuente reemplazada. Pruebas exitosas",
+      "usuario": "carlos"
+    },
+    {
+      "id": "hist007",
+      "reparacionId": "rep002",
+      "fecha": "2025-11-24T11:00:00.000Z",
+      "estado": "Listo",
+      "nota": "Equipo completamente funcional. Listo para entrega",
+      "usuario": "carlos"
+    },
+    {
+      "id": "mil2bmr24ivoyryf6ff",
+      "reparacionId": "mil2bmr2n19fp8ypbr",
+      "fecha": "2025-11-30T01:49:43.790Z",
+      "estado": "Recibido",
+      "nota": "Equipo recibido en taller",
+      "usuario": "admin"
+    },
+    {
+      "id": "mil2btqoqlt4fug8c1",
+      "reparacionId": "mil2btqonbiln07xy8",
+      "fecha": "2025-11-30T01:49:52.848Z",
+      "estado": "Recibido",
+      "nota": "Equipo recibido en taller",
+      "usuario": "admin"
+    }
+  ],
+  "clientes": [
+    {
+      "id": "cli001",
+      "nombre": "Carlos Méndez",
+      "telefono": "3105555001",
+      "email": "carlos.mendez@email.com",
+      "cedula": "1098765432"
+    },
+    {
+      "id": "cli002",
+      "nombre": "María García López",
+      "telefono": "3115555002",
+      "email": "maria.garcia@email.com",
+      "cedula": "1087654321"
+    },
+    {
+      "id": "cli003",
+      "nombre": "Juan Carlos Rodríguez",
+      "telefono": "3125555003",
+      "email": "juan.rodriguez@email.com",
+      "cedula": "1076543210"
+    },
+    {
+      "id": "cli004",
+      "nombre": "Sandra Martínez",
+      "telefono": "3135555004",
+      "email": "sandra.martinez@email.com",
+      "cedula": "1065432109"
+    },
+    {
+      "id": "cli005",
+      "nombre": "Roberto Fernández",
+      "telefono": "3145555005",
+      "email": "roberto.fernandez@email.com",
+      "cedula": "1054321098"
+    },
+    {
+      "id": "mil2bmr2wfs0zbrl9mo",
+      "nombre": "Carlos Méndez",
+      "telefono": "3105555001",
+      "email": "carlos.mendez@email.com",
+      "cedula": ""
+    },
+    {
+      "id": "mil2btqoy1omwn1afdb",
+      "nombre": "Sandra Martínez",
+      "telefono": "3135555004",
+      "email": "sandra.martinez@email.com",
+      "cedula": ""
+    }
+  ],
+  "tecnicos": [
+    {
+      "id": "tec001",
+      "nombre": "Michael Rodríguez",
+      "telefono": "3201234567",
+      "email": "michael.rodriguez@taller.com",
+      "especialidad": "Laptops y componentes",
+      "estado": "Activo"
+    },
+    {
+      "id": "tec002",
+      "nombre": "Carlos Gómez",
+      "telefono": "3209876543",
+      "email": "carlos.gomez@taller.com",
+      "especialidad": "PC de escritorio y periféricos",
+      "estado": "Activo"
+    }
+  ],
+  "proveedores": [
+    {
+      "id": "mil7hp7vim1fntfk16r",
+      "nombre": "ferreteria la u",
+      "contacto": "3227374454",
+      "nit": "",
+      "telefono": "3225837070",
+      "telefono2": "",
+      "email": "Alfonsobrian7@outlook.com",
+      "direccion": "89 c 48 sur",
+      "ciudad": "",
+      "categorias": "",
+      "metodos_pago": "",
+      "notas": "",
+      "estado": "Activo",
+      "fechaCreacion": "2025-11-30T04:14:25.003Z"
+    },
+    {
+      "id": "milswlrjbyhlic1snlh",
+      "nombre": "1022996548",
+      "contacto": "3227374454",
+      "telefono": "+573225837070",
+      "email": "Alfonsobrian7@outlook.com",
+      "direccion": "89 c 48 sur",
+      "ciudad": "Bogotá, Bogotá D.C., Colombia",
+      "fechaCreacion": "2025-11-30T14:13:52.304Z"
+    }
+  ],
+  "ordenes_compra": [
+    {
+      "id": "milr327pk0jtrk9iezf",
+      "proveedor_id": "mil7hp7vim1fntfk16r",
+      "proveedor_nombre": "ferreteria la u",
+      "fecha_creacion": "2025-11-30T13:22:54.326Z",
+      "fecha_estimada": "2025-11-30",
+      "estado": "recibido",
+      "total": 55000
+    }
+  ],
+  "detalles_orden": [
+    {
+      "id": "milr327qekdpa77pv5i",
+      "orden_id": "milr327pk0jtrk9iezf",
+      "producto_id": "hm1",
+      "producto_nombre": "Martillo de garra",
+      "cantidad": 10,
+      "costo_unitario": 5500,
+      "subtotal": 55000
+    }
+  ],
+  "pedidos": [
+    {
+      "id": "mil5tw83t6f9c27dnbd",
+      "fecha": "2025-11-30T03:27:54.723Z",
+      "items": [
+        {
+          "id": "hm1",
+          "nombre": "Martillo de garra",
+          "categoria": "Herramientas Manuales",
+          "stock": 1,
+          "precio": 12000,
+          "sugerido": 9
+        },
+        {
+          "id": "hm2",
+          "nombre": "Destornillador plano",
+          "categoria": "Herramientas Manuales",
+          "stock": 1,
+          "precio": 5000,
+          "sugerido": 9
+        },
+        {
+          "id": "hm4",
+          "nombre": "Llave ajustable",
+          "categoria": "Herramientas Manuales",
+          "stock": 1,
+          "precio": 9000,
+          "sugerido": 9
+        }
+      ],
+      "umbral": 5,
+      "usuario": "admin",
+      "estado": "creado"
+    },
+    {
+      "id": "mil5ui7rajffj5q6skp",
+      "fecha": "2025-11-30T03:28:23.223Z",
+      "items": [
+        {
+          "id": "hm1",
+          "nombre": "Martillo de garra",
+          "categoria": "Herramientas Manuales",
+          "stock": 1,
+          "precio": 12000,
+          "sugerido": 9
+        },
+        {
+          "id": "hm2",
+          "nombre": "Destornillador plano",
+          "categoria": "Herramientas Manuales",
+          "stock": 1,
+          "precio": 5000,
+          "sugerido": 9
+        },
+        {
+          "id": "hm4",
+          "nombre": "Llave ajustable",
+          "categoria": "Herramientas Manuales",
+          "stock": 1,
+          "precio": 9000,
+          "sugerido": 9
+        }
+      ],
+      "umbral": 5,
+      "usuario": "admin",
+      "estado": "creado"
+    },
+    {
+      "id": "mil5w5kbyp8exhxvhcl",
+      "fecha": "2025-11-30T03:29:40.139Z",
+      "items": [
+        {
+          "id": "test1",
+          "nombre": "Producto Test",
+          "categoria": "Test",
+          "stock": 1,
+          "precio": 1000,
+          "sugerido": 10
+        }
+      ],
+      "umbral": 5,
+      "usuario": "admin",
+      "estado": "creado"
+    },
+    {
+      "id": "mil5wbutvnqto4zhss",
+      "fecha": "2025-11-30T03:29:48.293Z",
+      "items": [
+        {
+          "id": "test1",
+          "nombre": "Producto Test",
+          "categoria": "Test",
+          "stock": 1,
+          "precio": 1000,
+          "sugerido": 10
+        }
+      ],
+      "umbral": 5,
+      "usuario": "admin",
+      "estado": "creado"
+    },
+    {
+      "id": "mil6aj1tqahm2o7dtjq",
+      "fecha": "2025-11-30T03:40:50.801Z",
+      "items": [
+        {
+          "id": "hm1",
+          "nombre": "Martillo de garra",
+          "categoria": "Herramientas Manuales",
+          "stock": 0,
+          "precio": 12000,
+          "sugerido": 10
+        },
+        {
+          "id": "hm2",
+          "nombre": "Destornillador plano",
+          "categoria": "Herramientas Manuales",
+          "stock": 0,
+          "precio": 5000,
+          "sugerido": 10
+        }
+      ],
+      "umbral": 5,
+      "usuario": "admin",
+      "estado": "creado"
+    },
+    {
+      "id": "milr860wr7laq8epdun",
+      "fecha": "2025-11-30T13:26:52.544Z",
+      "items": [
+        {
+          "id": "hm2",
+          "nombre": "Destornillador plano",
+          "categoria": "Herramientas Manuales",
+          "stock": 0,
+          "precio": 5000,
+          "sugerido": 10
+        }
+      ],
+      "umbral": 5,
+      "usuario": "admin",
+      "proveedorId": null,
+      "estado": "creado"
+    }
+  ],
+  "configuracionPOS": {
+    "controlHorarios": true,
+    "horaMinInicio": "08:00",
+    "horaMaxInicio": "08:30",
+    "horaMinCierre": "17:00"
+  }
+}

@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo - Ferretería</title>
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+    <!-- ENCABEZADO -->
+    <header>
+        <div class="header-contenido">
+            <div class="logo">📊 Panel Administrativo</div>
+            <div class="usuario-info">
+                <span id="usuarioActual">admin</span>
+                <button class="btn-logout" onclick="cerrarSesion()">Cerrar sesión</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+        <!-- TABS DE NAVEGACIÓN -->
+        <div class="contenedor-tabs">
+            <button class="tab-btn activo" onclick="cambiarTab('productos')">📦 Productos</button>
+            <button class="tab-btn" onclick="cambiarTab('ventas')">💰 Ventas</button>
+            <button class="tab-btn" onclick="cambiarTab('configuracion')">⚙️ Configuración</button>
+        </div>
+
+        <!-- PESTAÑA: PRODUCTOS -->
+        <div id="tab-productos" class="tab-contenido activo">
+            <h2 class="seccion-titulo">Gestión de Productos</h2>
+
+            <div id="mensajeContenedor"></div>
+
+            <!-- FORMULARIO AGREGAR/EDITAR -->
+            <div class="formulario">
+                <h3 class="titulo-formulario">
+                    <span id="tituloFormulario">Agregar Nuevo Producto</span>
+                </h3>
+
+                <form id="formularioProducto" onsubmit="guardarProducto(event)">
+                    <div class="fila-dos">
+                        <div class="grupo-formulario">
+                            <label for="nombre">Nombre *</label>
+                            <input type="text" id="nombre" required>
+                        </div>
+                        <div class="grupo-formulario">
+                            <label for="categoria">Categoría *</label>
+                            <select id="categoria" required>
+                                <option value="">-- Selecciona categoría --</option>
+                                <option value="Herramientas Manuales">Herramientas Manuales</option>
+                                <option value="Fijaciones">Fijaciones</option>
+                                <option value="Medición">Medición</option>
+                                <option value="Pintura">Pintura</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label for="descripcion">Descripción</label>
+                        <textarea id="descripcion"></textarea>
+                    </div>
+
+                    <div class="fila-dos">
+                        <div class="grupo-formulario">
+                            <label for="stock">Stock (unidades) *</label>
+                            <input type="number" id="stock" min="0" required>
+                        </div>
+                        <div class="grupo-formulario">
+                            <label for="precio">Precio Unitario ($) *</label>
+                            <input type="number" id="precio" min="0" step="0.01" required>
+                        </div>
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label for="imagen">URL de Imagen (opcional)</label>
+                        <input type="url" id="imagen" placeholder="https://ejemplo.com/imagen.jpg">
+                    </div>
+
+                    <div class="botones-formulario">
+                        <button type="submit" class="btn btn-primario">Guardar Producto</button>
+                        <button type="button" class="btn btn-secundario" onclick="limpiarFormulario()">Limpiar</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- TABLA DE PRODUCTOS -->
+            <div class="filtro-busqueda">
+                <input 
+                    type="text" 
+                    id="buscadorProductos" 
+                    placeholder="Buscar productos..."
+                    onkeyup="filtrarTablaProductos()"
+                >
+            </div>
+
+            <table class="tabla" id="tablaProductos">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Stock</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="productosTabla">
+                    <tr>
+                        <td colspan="5" class="sin-datos">Cargando productos...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- PESTAÑA: VENTAS -->
+        <div id="tab-ventas" class="tab-contenido">
+            <h2 class="seccion-titulo">Historial de Ventas</h2>
+
+            <div class="estadistica" id="estadisticasVentas">
+                <!-- Las estadísticas se cargarán aquí -->
+            </div>
+
+            <div class="filtro-busqueda">
+                <input 
+                    type="text" 
+                    id="buscadorVentas" 
+                    placeholder="Buscar por ID de venta..."
+                    onkeyup="filtrarTablaVentas()"
+                >
+            </div>
+
+            <table class="tabla" id="tablaVentas">
+                <thead>
+                    <tr>
+                        <th>ID Venta</th>
+                        <th>Fecha</th>
+                        <th>Productos</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="ventasTabla">
+                    <tr>
+                        <td colspan="5" class="sin-datos">Cargando ventas...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- PESTAÑA: CONFIGURACIÓN -->
+        <div id="tab-configuracion" class="tab-contenido">
+            <h2 class="seccion-titulo">Configuración</h2>
+
+            <div class="formulario">
+                <h3 class="titulo-seccion-info">Información del Sistema</h3>
+
+                                <div class="grupo-formulario">
+                                    <label>Usuario Actual</label>
+                                   
+                                </div>
+
+                                <div class="grupo-formulario">
+                                    <label>Versión</label>
+                                    
+                                </div>
+
+                                <div class="grupo-formulario">
+                                    <label>Base de Datos</label>
+                                  
+                                </div>
+                                   </div>
+
+                <h3 class="titulo-seguridad">Notas de Seguridad</h3>
+
+                <div class="caja-advertencia">
+                    <p class="caja-titulo">⚠️ Para Producción:</p>
+                    <ul class="lista-seguridad">
+                        <li>Cambiar la clave secreta de sesiones en server.js (línea 28)</li>
+                        <li>Usar HTTPS en lugar de HTTP</li>
+                        <li>Implementar encriptación de contraseñas (bcrypt)</li>
+                        <li>Usar una base de datos real (MongoDB, PostgreSQL) en lugar de db.json</li>
+                        <li>Implementar autenticación con JWT</li>
+                        <li>Agregar validaciones más estrictas en el backend</li>
+                        <li>Implementar rate limiting para prevenir ataques</li>
+                        <li>Usar variables de entorno para credenciales</li>
+                        <li>Implementar CORS correctamente</li>
+                        <li>Agregar logging y monitoreo</li>
+                    </ul>
+                </div>
+
+                <div class="caja-info">
+                    <p class="caja-titulo">ℹ️ Información Técnica:</p>
+                    <ul class="lista-info">
+                        <li>Backend: Node.js + Express</li>
+                        <li>Frontend: HTML5 + CSS3 + Vanilla JavaScript</li>
+                        <li>Almacenamiento: Archivo JSON local</li>
+                        <li>Sesiones: express-session (memoria)</li>
+                        <li>API REST endpoints documentados</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL EDITAR PRODUCTO -->
+    <div class="modal" id="modalEditarProducto">
+        <div class="modal-contenido">
+            <h2 class="modal-titulo">Editar Producto</h2>
+
+            <form id="formularioEditar" onsubmit="guardarProducto(event, true)">
+                <div class="grupo-formulario">
+                    <label for="editNombre">Nombre *</label>
+                    <input type="text" id="editNombre" required>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="editCategoria">Categoría *</label>
+                    <select id="editCategoria" required>
+                        <option value="Herramientas Manuales">Herramientas Manuales</option>
+                        <option value="Fijaciones">Fijaciones</option>
+                        <option value="Medición">Medición</option>
+                        <option value="Pintura">Pintura</option>
+                    </select>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="editDescripcion">Descripción</label>
+                    <textarea id="editDescripcion"></textarea>
+                </div>
+
+                <div class="fila-dos">
+                    <div class="grupo-formulario">
+                        <label for="editStock">Stock (unidades) *</label>
+                        <input type="number" id="editStock" min="0" required>
+                    </div>
+                    <div class="grupo-formulario">
+                        <label for="editPrecio">Precio Unitario ($) *</label>
+                        <input type="number" id="editPrecio" min="0" step="0.01" required>
+                    </div>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="editImagen">URL de Imagen</label>
+                    <input type="url" id="editImagen">
+                </div>
+
+                <div class="modal-botones">
+                    <button type="button" class="btn btn-secundario" onclick="cerrarModalEditar()">Cancelar</button>
+                    <button type="submit" class="btn btn-primario">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL VER DETALLES VENTA -->
+    <div class="modal" id="modalDetallesVenta">
+        <div class="modal-contenido">
+            <h2 class="modal-titulo">Detalles de la Venta</h2>
+            <div id="detallesVentaContenido"></div>
+            <div class="modal-botones">
+                <button class="btn btn-secundario" onclick="cerrarModalVenta()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+        // ====================================================================
+        // VARIABLES GLOBALES
+        // ====================================================================
+
+        let productoActualEdicion = null;
+        let productosCompletos = [];
+        let ventasCompletas = [];
+        let productosTab = [];
+        let ventasTab = [];
+
+        // ====================================================================
+        // INICIALIZACIÓN
+        // ====================================================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            verificarSesion();
+            cargarProductos();
+            cargarVentas();
+        });
+
+        /**
+         * Verifica si hay sesión activa
+         */
+        async function verificarSesion() {
+            try {
+                const respuesta = await fetch('/api/verificar-sesion');
+                const datos = await respuesta.json();
+
+                if (!datos.autenticado) {
+                    window.location.href = '/admin#login';
+                } else {
+                    document.getElementById('usuarioActual').textContent = datos.usuario;
+                }
+            } catch (error) {
+                console.error('Error verificando sesión:', error);
+                window.location.href = '/';
+            }
+        }
+
+        /**
+         * Carga los productos desde el servidor
+         */
+        async function cargarProductos() {
+            try {
+                const respuesta = await fetch('/api/productos');
+                productosCompletos = await respuesta.json();
+                productosTab = [...productosCompletos];
+                mostrarProductosTabla();
+            } catch (error) {
+                mostrarMensaje('Error al cargar productos: ' + error.message, 'error');
+            }
+        }
+
+        /**
+         * Carga las ventas desde el servidor
+         */
+        async function cargarVentas() {
+            try {
+                const respuesta = await fetch('/api/ventas', {
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                if (!respuesta.ok) {
+                    throw new Error('No autorizado');
+                }
+
+                ventasCompletas = await respuesta.json();
+                ventasTab = [...ventasCompletas];
+                mostrarEstadisticasVentas();
+                mostrarVentasTabla();
+            } catch (error) {
+                mostrarMensaje('Error al cargar ventas: ' + error.message, 'error');
+            }
+        }
+
+        // ====================================================================
+        // GESTIÓN DE TABS
+        // ====================================================================
+
+        /**
+         * Cambia entre tabs
+         */
+        function cambiarTab(nombreTab) {
+            // Ocultar todos los tabs
+            document.querySelectorAll('.tab-contenido').forEach(tab => {
+                tab.classList.remove('activo');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('activo');
+            });
+
+            // Mostrar tab seleccionado
+            document.getElementById(`tab-${nombreTab}`).classList.add('activo');
+            event.target.classList.add('activo');
+
+            // Recargar datos si es necesario
+            if (nombreTab === 'ventas') {
+                cargarVentas();
+            }
+        }
+
+        // ====================================================================
+        // GESTIÓN DE PRODUCTOS
+        // ====================================================================
+
+        /**
+         * Muestra los productos en la tabla
+         */
+        function mostrarProductosTabla() {
+            const tbody = document.getElementById('productosTabla');
+
+            if (productosTab.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="sin-datos">No hay productos</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = productosTab.map(producto => {
+                let estadoStock;
+                let claseStock;
+
+                if (producto.stock === 0) {
+                    estadoStock = 'Agotado';
+                    claseStock = 'stock-agotado';
+                } else if (producto.stock < 5) {
+                    estadoStock = `Stock Bajo (${producto.stock})`;
+                    claseStock = 'stock-bajo';
+                } else {
+                    estadoStock = `Disponible (${producto.stock})`;
+                    claseStock = 'stock-disponible';
+                }
+
+                return `
+                    <tr>
+                        <td><strong>${producto.nombre}</strong></td>
+                        <td>${producto.categoria}</td>
+                        <td><span class="estado-stock ${claseStock}">${estadoStock}</span></td>
+                        <td>$${producto.precio.toFixed(2)}</td>
+                        <td>
+                            <div class="acciones-celda">
+                                <button class="btn btn-pequeño btn-primario" onclick="abrirEditar('${producto.id}')">
+                                    Editar
+                                </button>
+                                <button class="btn btn-pequeño btn-peligro" onclick="eliminarProducto('${producto.id}')">
+                                    Eliminar
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        /**
+         * Filtra la tabla de productos
+         */
+        function filtrarTablaProductos() {
+            const busqueda = document.getElementById('buscadorProductos').value.toLowerCase();
+            productosTab = productosCompletos.filter(p =>
+                p.nombre.toLowerCase().includes(busqueda) ||
+                p.categoria.toLowerCase().includes(busqueda)
+            );
+            mostrarProductosTabla();
+        }
+
+        /**
+         * Guarda o actualiza un producto
+         */
+        async function guardarProducto(event, esEdicion = false) {
+            event.preventDefault();
+
+            const formulario = esEdicion ? 'formularioEditar' : 'formularioProducto';
+            const datos = {
+                nombre: document.getElementById(`${esEdicion ? 'edit' : ''}nombre`).value,
+                descripcion: document.getElementById(`${esEdicion ? 'edit' : ''}descripcion`).value,
+                categoria: document.getElementById(`${esEdicion ? 'edit' : ''}categoria`).value,
+                stock: document.getElementById(`${esEdicion ? 'edit' : ''}stock`).value,
+                precio: document.getElementById(`${esEdicion ? 'edit' : ''}precio`).value,
+                imagen: document.getElementById(`${esEdicion ? 'edit' : ''}imagen`).value
+            };
+
+            try {
+                let url = '/api/productos';
+                let metodo = 'POST';
+
+                if (esEdicion) {
+                    url += `/${productoActualEdicion}`;
+                    metodo = 'PUT';
+                }
+
+                const respuesta = await fetch(url, {
+                    method: metodo,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(datos)
+                });
+
+                const resultado = await respuesta.json();
+
+                if (!respuesta.ok) {
+                    mostrarMensaje('Error: ' + resultado.error, 'error');
+                    return;
+                }
+
+                mostrarMensaje(
+                    esEdicion ? 'Producto actualizado exitosamente' : 'Producto creado exitosamente',
+                    'exito'
+                );
+
+                if (esEdicion) {
+                    cerrarModalEditar();
+                } else {
+                    limpiarFormulario();
+                }
+
+                cargarProductos();
+
+            } catch (error) {
+                mostrarMensaje('Error: ' + error.message, 'error');
+            }
+        }
+
+        /**
+         * Limpia el formulario de agregar
+         */
+        function limpiarFormulario() {
+            document.getElementById('formularioProducto').reset();
+            document.getElementById('tituloFormulario').textContent = 'Agregar Nuevo Producto';
+        }
+
+        /**
+         * Abre el modal de edición
+         */
+        function abrirEditar(idProducto) {
+            const producto = productosCompletos.find(p => p.id === idProducto);
+
+            if (!producto) {
+                mostrarMensaje('Producto no encontrado', 'error');
+                return;
+            }
+
+            productoActualEdicion = idProducto;
+            document.getElementById('editNombre').value = producto.nombre;
+            document.getElementById('editDescripcion').value = producto.descripcion;
+            document.getElementById('editCategoria').value = producto.categoria;
+            document.getElementById('editStock').value = producto.stock;
+            document.getElementById('editPrecio').value = producto.precio;
+            document.getElementById('editImagen').value = producto.imagen;
+
+            document.getElementById('modalEditarProducto').classList.add('activo');
+        }
+
+        /**
+         * Cierra el modal de edición
+         */
+        function cerrarModalEditar() {
+            document.getElementById('modalEditarProducto').classList.remove('activo');
+            productoActualEdicion = null;
+        }
+
+        /**
+         * Elimina un producto
+         */
+        async function eliminarProducto(idProducto) {
+            if (!confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+                return;
+            }
+
+            try {
+                const respuesta = await fetch(`/api/productos/${idProducto}`, {
+                    method: 'DELETE'
+                });
+
+                const resultado = await respuesta.json();
+
+                if (!respuesta.ok) {
+                    mostrarMensaje('Error: ' + resultado.error, 'error');
+                    return;
+                }
+
+                mostrarMensaje('Producto eliminado exitosamente', 'exito');
+                cargarProductos();
+
+            } catch (error) {
+                mostrarMensaje('Error: ' + error.message, 'error');
+            }
+        }
+
+        // ====================================================================
+        // GESTIÓN DE VENTAS
+        // ====================================================================
+
+        /**
+         * Muestra estadísticas de ventas
+         */
+        function mostrarEstadisticasVentas() {
+            const contenedor = document.getElementById('estadisticasVentas');
+
+            const totalVentas = ventasCompletas.length;
+            const montoTotal = ventasCompletas.reduce((sum, v) => sum + v.total, 0);
+            const ventasPromedio = totalVentas > 0 ? (montoTotal / totalVentas).toFixed(2) : 0;
+
+            contenedor.innerHTML = `
+                <div class="tarjeta-estadistica">
+                    <h3>Total de Ventas</h3>
+                    <div class="valor">${totalVentas}</div>
+                </div>
+                <div class="tarjeta-estadistica">
+                    <h3>Monto Total</h3>
+                    <div class="valor">${montoTotal.toFixed(2)}</div>
+                </div>
+                <div class="tarjeta-estadistica">
+                    <h3>Venta Promedio</h3>
+                    <div class="valor">${ventasPromedio}</div>
+                </div>
+            `;
+        }
+
+        /**
+         * Muestra las ventas en la tabla
+         */
+        function mostrarVentasTabla() {
+            const tbody = document.getElementById('ventasTabla');
+
+            if (ventasTab.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="sin-datos">No hay ventas registradas</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = ventasTab.map(venta => {
+                const fecha = new Date(venta.fecha).toLocaleString('es-CO');
+                const cantProductos = venta.items.length;
+
+                return `
+                    <tr>
+                        <td><code>${venta.id.substring(0, 8)}...</code></td>
+                        <td>${fecha}</td>
+                        <td>${cantProductos} ${cantProductos === 1 ? 'producto' : 'productos'}</td>
+                        <td><strong>${venta.total.toFixed(2)}</strong></td>
+                        <td>
+                            <div class="acciones-celda">
+                                <button class="btn btn-pequeño btn-primario" onclick="verDetallesVenta('${venta.id}')">
+                                    Ver Detalles
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        /**
+         * Filtra la tabla de ventas
+         */
+        function filtrarTablaVentas() {
+            const busqueda = document.getElementById('buscadorVentas').value.toLowerCase();
+            ventasTab = ventasCompletas.filter(v => v.id.toLowerCase().includes(busqueda));
+            mostrarVentasTabla();
+        }
+
+        /**
+         * Ver detalles de una venta
+         */
+        function verDetallesVenta(idVenta) {
+            const venta = ventasCompletas.find(v => v.id === idVenta);
+
+            if (!venta) {
+                mostrarMensaje('Venta no encontrada', 'error');
+                return;
+            }
+
+            const fecha = new Date(venta.fecha).toLocaleString('es-CO');
+            const itemsHTML = venta.items.map(item => `
+                <tr>
+                    <td>${item.nombre}</td>
+                    <td>${item.cantidad}</td>
+                    <td>${item.precio.toFixed(2)}</td>
+                    <td>${item.subtotal.toFixed(2)}</td>
+                </tr>
+            `).join('');
+
+            const contenido = document.getElementById('detallesVentaContenedor');
+            contenido.innerHTML = `
+                <div class="detalles-venta-info">
+                    <p><strong>ID de Venta:</strong> ${venta.id}</p>
+                    <p><strong>Fecha:</strong> ${fecha}</p>
+                    <p><strong>Total:</strong> ${venta.total.toFixed(2)}</p>
+                </div>
+
+                <h3 class="titulo-detalles">Productos</h3>
+                <table class="tabla-detalles">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${itemsHTML}
+                    </tbody>
+                </table>
+            `;
+
+            document.getElementById('modalDetallesVenta').classList.add('activo');
+        }
+
+        /**
+         * Cierra el modal de detalles de venta
+         */
+        function cerrarModalVenta() {
+            document.getElementById('modalDetallesVenta').classList.remove('activo');
+        }
+
+        // ====================================================================
+        // FUNCIONES GENERALES
+        // ====================================================================
+
+        /**
+         * Muestra un mensaje en la página
+         */
+        function mostrarMensaje(texto, tipo) {
+            const contenedor = document.getElementById('mensajeContenedor');
+            const mensaje = document.createElement('div');
+            mensaje.className = `mensaje ${tipo}`;
+            mensaje.textContent = texto;
+            contenedor.innerHTML = '';
+            contenedor.appendChild(mensaje);
+
+            // Limpiar mensaje después de 3 segundos
+            setTimeout(() => {
+                contenedor.innerHTML = '';
+            }, 3000);
+        }
+
+        /**
+         * Cierra la sesión del usuario
+         */
+        async function cerrarSesion() {
+            if (!confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                return;
+            }
+
+            try {
+                await fetch('/api/logout');
+                window.location.href = '/';
+            } catch (error) {
+                console.error('Error al cerrar sesión:', error);
+                window.location.href = '/';
+            }
+        }
+
+        // Cerrar modales al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            const modalEditar = document.getElementById('modalEditarProducto');
+            const modalVenta = document.getElementById('modalDetallesVenta');
+
+            if (e.target === modalEditar) {
+                cerrarModalEditar();
+            }
+            if (e.target === modalVenta) {
+                cerrarModalVenta();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Reparaciones</title>
+  <link rel="stylesheet" href="./css/reparaciones.css">
+</head>
+<body>
+  <!-- ENCABEZADO -->
+  <header id="encabezado-rep">
+    <div class="header-contenido-rep">
+      <div class="logo-rep">🔧 Gestión de Reparaciones</div>
+      <div class="acciones-header-rep">
+        <a href="/admin.html" class="btn-volver">← Volver al Admin</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-rep">
+    <!-- TABS DE NAVEGACIÓN -->
+    <div class="contenedor-tabs-rep">
+      <button class="tab-btn-rep activo" onclick="cambiarTabRep('agregar')">➕ Agregar Reparación</button>
+      <button class="tab-btn-rep" onclick="cambiarTabRep('gestionar')">🔍 Gestión de Reparaciones</button>
+      <button class="tab-btn-rep" onclick="cambiarTabRep('tecnicos')">👨‍🔧 Gestión de Técnicos</button>
+    </div>
+
+    <!-- TAB 1: AGREGAR REPARACIÓN -->
+    <div id="tab-agregar-rep" class="tab-contenido-rep activo">
+      <h2 class="seccion-titulo-rep">➕ Agregar Nueva Reparación</h2>
+      <div id="mensajeContenedorRep"></div>
+
+      <div class="formulario-rep">
+        <h3 class="titulo-formulario-rep">✏️ Formulario de Reparación</h3>
+
+        <form id="formAgregarReparacion" onsubmit="guardarReparacion(event)">
+          <!-- Cliente -->
+          <fieldset class="fieldset-rep">
+            <legend>Datos del Cliente</legend>
+            <div class="fila-dos-rep">
+              <div class="grupo-formulario-rep">
+                <label for="clienteNombre">Nombre Completo *</label>
+                <input type="text" id="clienteNombre" placeholder="Ej: Juan Pérez" required>
+              </div>
+              <div class="grupo-formulario-rep">
+                <label for="clienteTelefono">Teléfono *</label>
+                <input type="tel" id="clienteTelefono" placeholder="3001234567" required>
+              </div>
+            </div>
+
+            <div class="fila-dos-rep">
+              <div class="grupo-formulario-rep">
+                <label for="clienteEmail">Email</label>
+                <input type="email" id="clienteEmail" placeholder="correo@ejemplo.com">
+              </div>
+              <div class="grupo-formulario-rep">
+                <label for="clienteCedula">Cédula/ID</label>
+                <input type="text" id="clienteCedula" placeholder="123456789">
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Equipo -->
+          <fieldset class="fieldset-rep">
+            <legend>Datos del Equipo</legend>
+            <div class="fila-dos-rep">
+              <div class="grupo-formulario-rep">
+                <label for="tipoEquipo">Tipo de Equipo *</label>
+                <select id="tipoEquipo" required>
+                  <option value="">-- Selecciona --</option>
+                  <option value="Taladro">Taladro</option>
+                  <option value="Esmeril">Esmeril</option>
+                  <option value="Compresor">Compresor</option>
+                  <option value="Motosierra">Motosierra</option>
+                  <option value="Cortadora">Cortadora</option>
+                  <option value="Otro">Otro</option>
+                </select>
+              </div>
+              <div class="grupo-formulario-rep">
+                <label for="marca">Marca</label>
+                <input type="text" id="marca" placeholder="Ej: DeWalt">
+              </div>
+            </div>
+
+            <div class="fila-tres-rep">
+              <div class="grupo-formulario-rep">
+                <label for="modelo">Modelo</label>
+                <input type="text" id="modelo" placeholder="Modelo del equipo">
+              </div>
+              <div class="grupo-formulario-rep">
+                <label for="serial">Serial</label>
+                <input type="text" id="serial" placeholder="Serial del equipo">
+              </div>
+              <div class="grupo-formulario-rep">
+                <label for="estadoFisico">Estado Físico</label>
+                <select id="estadoFisico">
+                  <option value="">-- Selecciona --</option>
+                  <option value="Bueno">Bueno</option>
+                  <option value="Con rayones">Con rayones</option>
+                  <option value="Con golpes">Con golpes</option>
+                  <option value="Deteriorado">Deteriorado</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Diagnóstico -->
+          <fieldset class="fieldset-rep">
+            <legend>Falla Reportada y Diagnóstico</legend>
+            <div class="grupo-formulario-rep">
+              <label for="fallaReportada">Falla Reportada *</label>
+              <textarea id="fallaReportada" placeholder="Describe qué no funciona..." rows="3" required></textarea>
+            </div>
+            <div class="grupo-formulario-rep">
+              <label for="accesorios">Accesorios Incluidos</label>
+              <textarea id="accesorios" placeholder="Cable, manual, partes, etc." rows="2"></textarea>
+            </div>
+          </fieldset>
+
+          <!-- Asignación y Costo -->
+          <fieldset class="fieldset-rep">
+            <legend>Asignación y Costo</legend>
+            <div class="fila-tres-rep">
+              <div class="grupo-formulario-rep">
+                <label for="selectTecnico">Técnico Asignado</label>
+                <select id="selectTecnico">
+                  <option value="">-- Sin asignar --</option>
+                </select>
+              </div>
+              <div class="grupo-formulario-rep">
+                <label for="costoEstimado">Costo Estimado ($)</label>
+                <input type="number" id="costoEstimado" min="0" step="0.01" placeholder="0.00">
+              </div>
+              <div class="grupo-formulario-rep">
+                <label for="garantia">Garantía (días)</label>
+                <input type="number" id="garantia" min="0" placeholder="0">
+              </div>
+            </div>
+            <div class="grupo-formulario-rep">
+              <label for="fechaEntregaEstimada">Fecha Entrega Estimada</label>
+              <input type="date" id="fechaEntregaEstimada">
+            </div>
+          </fieldset>
+
+          <div class="botones-formulario-rep">
+            <button type="submit" class="btn btn-primario btn-grande-rep">💾 Guardar Reparación</button>
+            <button type="button" class="btn btn-secundario" onclick="limpiarFormularioReparacion()">🔄 Limpiar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- TAB 2: GESTIÓN DE REPARACIONES -->
+    <div id="tab-gestionar-rep" class="tab-contenido-rep">
+      <h2 class="seccion-titulo-rep">🔍 Gestión de Reparaciones</h2>
+
+      <div class="filtro-busqueda-rep">
+        <input 
+          type="text" 
+          id="buscadorReparaciones" 
+          placeholder="🔍 Buscar por nombre, orden o equipo..."
+          onkeyup="filtrarReparaciones()"
+        >
+        <select id="filtroEstadoRep" onchange="filtrarReparaciones()" title="Filtrar por estado">
+          <option value="">📊 Todos los estados</option>
+          <option value="Recibido">Recibido</option>
+          <option value="Diagnóstico">Diagnóstico</option>
+          <option value="En reparación">En reparación</option>
+          <option value="Listo">Listo</option>
+          <option value="Entregado">Entregado</option>
+        </select>
+      </div>
+
+      <table class="tabla tabla-reparaciones">
+        <thead>
+          <tr>
+            <th>Orden</th>
+            <th>Cliente</th>
+            <th>Equipo</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+            <th>Recibido</th>
+            <th>Entrega Est.</th>
+            <th class="acciones-header">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="reparacionesTabla">
+          <tr>
+            <td colspan="8" class="sin-datos">Cargando reparaciones...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TAB 3: GESTIÓN DE TÉCNICOS -->
+    <div id="tab-tecnicos-rep" class="tab-contenido-rep">
+      <h2 class="seccion-titulo-rep">👨‍🔧 Gestión de Técnicos</h2>
+
+      <!-- Agregar Técnico -->
+      <div class="formulario-rep">
+        <h3 class="titulo-formulario-rep">➕ Agregar Nuevo Técnico</h3>
+
+        <form id="formAgregarTecnico" onsubmit="guardarTecnico(event)">
+          <div class="fila-tres-rep">
+            <div class="grupo-formulario-rep">
+              <label for="nombreTecnico">Nombre *</label>
+              <input type="text" id="nombreTecnico" placeholder="Ej: Carlos García" required>
+            </div>
+            <div class="grupo-formulario-rep">
+              <label for="telefonoTecnico">Teléfono</label>
+              <input type="tel" id="telefonoTecnico" placeholder="3001234567">
+            </div>
+            <div class="grupo-formulario-rep">
+              <label for="emailTecnico">Email</label>
+              <input type="email" id="emailTecnico" placeholder="correo@ejemplo.com">
+            </div>
+          </div>
+
+          <div class="botones-formulario-rep">
+            <button type="submit" class="btn btn-primario">💾 Agregar Técnico</button>
+            <button type="button" class="btn btn-secundario" onclick="limpiarFormularioTecnico()">🔄 Limpiar</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Lista de Técnicos -->
+      <div class="formulario-rep">
+        <h3 class="titulo-formulario-rep">📋 Técnicos Registrados</h3>
+
+        <div class="filtro-busqueda-rep">
+          <input 
+            type="text" 
+            id="buscadorTecnicos" 
+            placeholder="🔍 Buscar técnico..."
+            onkeyup="filtrarTecnicos()"
+          >
+        </div>
+
+        <table class="tabla tabla-tecnicos">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Teléfono</th>
+              <th>Email</th>
+              <th class="acciones-header">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tecnicosTabla">
+            <tr>
+              <td colspan="4" class="sin-datos">Cargando técnicos...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/reparaciones.js"></script>
+</body>
+</html>

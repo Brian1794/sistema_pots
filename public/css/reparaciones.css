@@ -1,0 +1,688 @@
+/* ============================================================================
+   GESTIÓN DE REPARACIONES - CSS ELEGANTE Y MODERNO
+   ============================================================================ */
+
+:root {
+  --primary: #e63946;
+  --primary-dark: #a4161a;
+  --primary-light: #f5e6e7;
+  --secondary: #1d3557;
+  --secondary-light: #e8f1f8;
+  --success: #10b981;
+  --success-light: #d1fae5;
+  --warning: #f59e0b;
+  --warning-light: #fef3c7;
+  --danger: #ef4444;
+  --danger-light: #fee2e2;
+  --info: #06b6d4;
+  --dark: #1f2937;
+  --gray-100: #f9fafb;
+  --gray-200: #f3f4f6;
+  --gray-300: #e5e7eb;
+  --gray-400: #d1d5db;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --text: #333;
+  --text-light: #6b7280;
+  --bg: #ffffff;
+  --bg-alt: #f9fafb;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+body {
+  padding: 24px;
+}
+
+/* ============================================================================
+   ENCABEZADO
+   ============================================================================ */
+
+#encabezado-rep {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  padding: 28px 32px;
+  margin-bottom: 32px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.header-contenido-rep {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+}
+
+.logo-rep {
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.acciones-header-rep {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-volver {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: var(--transition);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-volver:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+/* ============================================================================
+   TABS
+   ============================================================================ */
+
+.contenedor-tabs-rep {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  padding: 12px;
+  background: var(--gray-100);
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+}
+
+.tab-btn-rep {
+  flex: 1;
+  min-width: 160px;
+  padding: 14px 20px;
+  background: white;
+  color: var(--text-light);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.tab-btn-rep:hover {
+  background: var(--gray-100);
+  color: var(--primary);
+  border-color: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+.tab-btn-rep.activo {
+  background: linear-gradient(135deg, var(--primary-light) 0%, rgba(245, 230, 231, 0.5) 100%);
+  color: var(--primary-dark);
+  border-color: var(--primary);
+  box-shadow: var(--shadow);
+}
+
+/* ============================================================================
+   TABS CONTENIDO
+   ============================================================================ */
+
+.tab-contenido-rep {
+  display: none;
+  animation: fadeInUp 0.4s ease;
+}
+
+.tab-contenido-rep.activo {
+  display: block;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================================
+   SECCIONES Y TÍTULOS
+   ============================================================================ */
+
+.seccion-titulo-rep {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 3px solid var(--primary-light);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ============================================================================
+   FORMULARIOS
+   ============================================================================ */
+
+.formulario-rep {
+  background: var(--bg);
+  padding: 28px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin-bottom: 28px;
+}
+
+.titulo-formulario-rep {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--primary-light);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fieldset-rep {
+  margin-bottom: 24px;
+  padding: 20px;
+  background: var(--gray-100);
+  border-radius: 10px;
+  border-left: 4px solid var(--primary);
+}
+
+.fieldset-rep legend {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--primary-dark);
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+.fila-dos-rep {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.fila-tres-rep {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.grupo-formulario-rep {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.grupo-formulario-rep label {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.grupo-formulario-rep input,
+.grupo-formulario-rep textarea,
+.grupo-formulario-rep select {
+  padding: 12px 14px;
+  border: 2px solid var(--gray-300);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: var(--transition);
+  background: white;
+  color: var(--text);
+}
+
+.grupo-formulario-rep input:focus,
+.grupo-formulario-rep textarea:focus,
+.grupo-formulario-rep select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+  background: white;
+}
+
+.grupo-formulario-rep textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* ============================================================================
+   BOTONES
+   ============================================================================ */
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.btn-primario {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  box-shadow: var(--shadow);
+}
+
+.btn-primario:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-primario:active {
+  transform: translateY(0);
+}
+
+.btn-secundario {
+  background: var(--gray-200);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secundario:hover {
+  background: var(--gray-300);
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+  color: white;
+  box-shadow: var(--shadow);
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-small {
+  padding: 8px 14px;
+  font-size: 13px;
+}
+
+.botones-formulario-rep {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 2px solid var(--gray-200);
+}
+
+/* ============================================================================
+   TABLAS
+   ============================================================================ */
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin-top: 20px;
+}
+
+.tabla thead {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+}
+
+.tabla thead th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tabla tbody tr {
+  border-bottom: 1px solid var(--gray-200);
+  transition: var(--transition);
+}
+
+.tabla tbody tr:hover {
+  background: var(--primary-light);
+}
+
+.tabla tbody td {
+  padding: 14px 16px;
+  font-size: 14px;
+}
+
+.tabla-reparaciones tbody td:first-child,
+.tabla-tecnicos tbody td:first-child {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.acciones-header {
+  text-align: center;
+}
+
+.acciones-columna {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.sin-datos {
+  text-align: center;
+  padding: 40px 20px !important;
+  color: var(--text-light);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* ============================================================================
+   FILTROS Y BÚSQUEDA
+   ============================================================================ */
+
+.filtro-busqueda-rep {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+#buscadorReparaciones,
+#buscadorTecnicos,
+#filtroEstadoRep {
+  padding: 12px 14px;
+  border: 2px solid var(--gray-300);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: var(--transition);
+  background: white;
+  color: var(--text);
+}
+
+#buscadorReparaciones,
+#buscadorTecnicos {
+  flex: 1;
+  min-width: 200px;
+}
+
+#buscadorReparaciones:focus,
+#buscadorTecnicos:focus,
+#filtroEstadoRep:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+#filtroEstadoRep {
+  min-width: 180px;
+}
+
+/* ============================================================================
+   ESTADOS
+   ============================================================================ */
+
+.estado-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 12px;
+  text-align: center;
+  background: var(--info);
+  color: white;
+}
+
+.estado-recibido {
+  background: var(--info);
+  color: white;
+}
+
+.estado-diagnostico {
+  background: var(--warning);
+  color: white;
+}
+
+.estado-enreparacion {
+  background: var(--secondary);
+  color: white;
+}
+
+.estado-listo {
+  background: var(--success);
+  color: white;
+}
+
+.estado-entregado {
+  background: var(--success);
+  color: white;
+}
+
+/* ============================================================================
+   MENSAJES
+   ============================================================================ */
+
+.alerta {
+  padding: 16px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow);
+  border-left: 4px solid;
+}
+
+.alerta-exito {
+  background: var(--success-light);
+  color: #065f46;
+  border-left-color: var(--success);
+}
+
+.alerta-error {
+  background: var(--danger-light);
+  color: #7f1d1d;
+  border-left-color: var(--danger);
+}
+
+.alerta-info {
+  background: var(--primary-light);
+  color: #1e40af;
+  border-left-color: var(--primary);
+}
+
+.alerta-warning {
+  background: var(--warning-light);
+  color: #92400e;
+  border-left-color: var(--warning);
+}
+
+/* ============================================================================
+   CONTENEDORES DE MENSAJES
+   ============================================================================ */
+
+#mensajeContenedorRep {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 10000;
+  max-width: 400px;
+}
+
+#mensajeContenedorRep .alerta {
+  margin-bottom: 12px;
+  animation: slideInRight 0.4s ease;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(400px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+
+@media (max-width: 1024px) {
+  .fila-tres-rep {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 12px;
+  }
+
+  .header-contenido-rep {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .logo-rep {
+    font-size: 24px;
+  }
+
+  .fila-dos-rep,
+  .fila-tres-rep {
+    grid-template-columns: 1fr;
+  }
+
+  .contenedor-tabs-rep {
+    flex-direction: column;
+  }
+
+  .tab-btn-rep {
+    min-width: auto;
+  }
+
+  .formulario-rep {
+    padding: 16px;
+  }
+
+  .tabla {
+    font-size: 12px;
+  }
+
+  .tabla thead th,
+  .tabla tbody td {
+    padding: 10px;
+  }
+
+  .acciones-columna {
+    flex-direction: column;
+  }
+
+  .seccion-titulo-rep {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  #encabezado-rep {
+    padding: 16px;
+  }
+
+  .logo-rep {
+    font-size: 20px;
+  }
+
+  .btn {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .seccion-titulo-rep {
+    font-size: 18px;
+  }
+
+  .tabla {
+    font-size: 11px;
+  }
+
+  #mensajeContenedorRep {
+    right: 12px;
+    left: 12px;
+    max-width: 100%;
+  }
+}
+
+/* ============================================================================
+   IMPRESIÓN
+   ============================================================================ */
+
+@media print {
+  body {
+    background: white;
+    padding: 0;
+  }
+
+  #encabezado-rep,
+  .contenedor-tabs-rep,
+  .btn,
+  .acciones-columna {
+    display: none !important;
+  }
+
+  .formulario-rep,
+  .tabla {
+    box-shadow: none;
+    border: 1px solid var(--gray-300);
+    page-break-inside: avoid;
+  }
+}

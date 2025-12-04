@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ferretería Online - Compra herramientas y materiales">
+    <title>Ferretería Online - Tienda</title>
+    <link rel="stylesheet" href="/css/tienda.css">
+</head>
+<body>
+    <!-- ENCABEZADO -->
+    <header>
+        <div class="header-contenido">
+            <div class="logo">🔨 Ferretería Online</div>
+            <nav class="enlaces-header" aria-label="Navegación principal">
+                <button class="carrito-btn" onclick="abrirCarrito(event)" aria-label="Abrir carrito de compras">
+                    🛒 Carrito
+                    <span class="contador-carrito" id="contadorCarrito">0</span>
+                </button>
+                <a href="/admin" class="btn-admin">📊 Admin</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+        <h1 class="seccion-titulo">Catálogo de Productos</h1>
+
+        <!-- FILTROS -->
+        <section class="filtros" aria-label="Filtros de búsqueda">
+            <label for="buscador" class="label-oculto">Buscar productos</label>
+            <input 
+                type="text" 
+                id="buscador" 
+                placeholder="Buscar productos..."
+                onkeyup="filtrarProductos()"
+            >
+            <label for="filtroCategoria" class="label-oculto">Filtrar por categoría</label>
+            <select id="filtroCategoria" aria-label="Filtrar por categoría" onchange="filtrarProductos()">
+                <option value="">Todas las categorías</option>
+                <option value="Herramientas Manuales">Herramientas Manuales</option>
+                <option value="Fijaciones">Fijaciones</option>
+                <option value="Medición">Medición</option>
+                <option value="Pintura">Pintura</option>
+            </select>
+        </section>
+
+        <!-- MENSAJES DE ESTADO -->
+        <div id="mensajeContenedor" role="status" aria-live="polite" aria-atomic="true"></div>
+
+        <!-- GRID DE PRODUCTOS -->
+        <div class="productos-grid" id="productosContenedor">
+            <p class="cargando">Cargando productos...</p>
+        </div>
+    </main>
+
+    <!-- MODAL DE CARRITO -->
+    <div class="modal" id="modalCarrito" role="dialog" aria-labelledby="modalTitulo" aria-hidden="true">
+        <div class="modal-contenido">
+            <button class="btn-cerrar-modal" onclick="cerrarCarrito()" aria-label="Cerrar carrito">✕</button>
+            <h2 class="modal-titulo" id="modalTitulo">🛒 Mi Carrito de Compras</h2>
+
+            <!-- ITEMS DEL CARRITO -->
+            <div class="carrito-items" id="carritoItems"></div>
+
+            <!-- RESUMEN -->
+            <div class="carrito-resumen" id="carritoResumen">
+                <div class="resumen-linea">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+                <div class="resumen-total">
+                    <div class="resumen-linea">
+                        <span>Total:</span>
+                        <span id="totalCarrito">$0.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FORMULARIO DE DATOS -->
+            <form id="formularioDatos" class="formulario-datos" class="display: none;">
+                <h3 class="titulo-formulario">Datos de la Compra</h3>
+                
+                <div class="grupo-formulario">
+                    <label for="clienteNombre">Nombre *</label>
+                    <input type="text" id="clienteNombre" placeholder="Tu nombre" required>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="clienteEmail">Email</label>
+                    <input type="email" id="clienteEmail" placeholder="tu@email.com">
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="clienteTelefono">Teléfono</label>
+                    <input type="tel" id="clienteTelefono" placeholder="+57 3XX XXXX XXX">
+                </div>
+            </form>
+
+            <!-- BOTONES -->
+            <div class="botones-carrito">
+                <button class="btn btn-finalizar" onclick="mostrarFormularioDatos()">Continuar a Pago</button>
+                <button class="btn btn-cerrar" onclick="cerrarCarrito()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE PAGO -->
+    <div class="modal" id="modalPago" role="dialog" aria-labelledby="modalPagoTitulo" aria-hidden="true">
+        <div class="modal-contenido modal-pago">
+            <button class="btn-cerrar-modal" onclick="cerrarModalPago()" aria-label="Cerrar">✕</button>
+            <h2 class="modal-titulo" id="modalPagoTitulo">💳 Resumen de Pago</h2>
+
+            <div class="resumen-pago" id="resumenPago"></div>
+
+            <div class="botones-pago">
+                <button class="btn btn-pagar" onclick="procesarPago()">Pagar Ahora</button>
+                <button class="btn btn-cancelar-pago" onclick="volverAlCarrito()">Volver al Carrito</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE ÉXITO -->
+    <div class="modal" id="modalExito" role="dialog" aria-labelledby="modalExitoTitulo" aria-hidden="true">
+        <div class="modal-contenido modal-exito">
+            <div class="icono-exito">✅</div>
+            <h2 class="modal-titulo" id="modalExitoTitulo">¡Compra Exitosa!</h2>
+            <p class="mensaje-exito" id="mensajeExito"></p>
+            <div class="botones-exito">
+                <button class="btn btn-nuevo-carrito" onclick="nuevaCompra()">Continuar Comprando</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+        // ====================================================================
+        // VARIABLES GLOBALES
+        // ====================================================================
+
+        let productos = [];
+        let carrito = [];
+        let productosFiltrados = [];
+        let datosClienteActual = {};
+
+        // ====================================================================
+        // INICIALIZACIÓN
+        // ====================================================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarProductos();
+            // Cerrar con Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    cerrarCarrito();
+                    cerrarModalPago();
+                }
+            });
+        });
+
+        /**
+         * Carga los productos desde el servidor
+         */
+        async function cargarProductos() {
+            try {
+                const respuesta = await fetch('/api/productos');
+                if (!respuesta.ok) throw new Error('Error al cargar');
+                productos = await respuesta.json();
+                productosFiltrados = [...productos];
+                mostrarProductos(productosFiltrados);
+            } catch (error) {
+                mostrarMensaje('❌ Error al cargar productos', 'error');
+            }
+        }
+
+        // ====================================================================
+        // VISUALIZACIÓN
+        // ====================================================================
+
+        /**
+         * Muestra los productos en la grid
+         */
+        function mostrarProductos(productosAMostrar) {
+            const contenedor = document.getElementById('productosContenedor');
+
+            if (productosAMostrar.length === 0) {
+                contenedor.innerHTML = '<p class="sin-productos">No se encontraron productos.</p>';
+                return;
+            }
+
+            contenedor.innerHTML = productosAMostrar.map(producto => {
+                const disponible = producto.stock > 0;
+                const claseStock = producto.stock === 0 ? 'stock-agotado' :
+                                 producto.stock < 5 ? 'stock-bajo' : 'stock-disponible';
+
+                return `
+                    <article class="producto-card">
+                        <div class="producto-imagen">
+                            ${producto.imagen ? `<img src="${producto.imagen}" alt="${producto.nombre}">` : '<span>📦</span>'}
+                        </div>
+                        <div class="producto-info">
+                            <span class="producto-categoria">${producto.categoria}</span>
+                            <h3 class="producto-nombre">${producto.nombre}</h3>
+                            <p class="producto-descripcion">${producto.descripcion}</p>
+
+                            <div class="producto-stock">
+                                Stock: <span class="${claseStock}">
+                                    ${producto.stock} ${producto.stock === 1 ? 'unidad' : 'unidades'}
+                                </span>
+                            </div>
+
+                            <div class="producto-precio">$${producto.precio.toFixed(2)}</div>
+
+                            <form class="producto-acciones" onsubmit="event.preventDefault(); agregarAlCarrito('${producto.id}')">
+                                <label for="cantidad-${producto.id}" class="label-oculto">Cantidad</label>
+                                <input 
+                                    type="number" 
+                                    id="cantidad-${producto.id}"
+                                    class="cantidad-input" 
+                                    min="1" 
+                                    max="${producto.stock}" 
+                                    value="1"
+                                    ${!disponible ? 'disabled' : ''}
+                                >
+                                <button 
+                                    type="submit"
+                                    class="btn btn-agregar"
+                                    ${!disponible ? 'disabled' : ''}
+                                >
+                                    ${disponible ? 'Agregar' : 'Agotado'}
+                                </button>
+                            </form>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        /**
+         * Muestra un mensaje
+         */
+        function mostrarMensaje(texto, tipo) {
+            const contenedor = document.getElementById('mensajeContenedor');
+            const mensaje = document.createElement('div');
+            mensaje.className = `mensaje ${tipo}`;
+            mensaje.textContent = texto;
+            contenedor.innerHTML = '';
+            contenedor.appendChild(mensaje);
+
+            setTimeout(() => {
+                contenedor.innerHTML = '';
+            }, 3000);
+        }
+
+        /**
+         * Actualiza el contador del carrito
+         */
+        function actualizarContadorCarrito() {
+            const total = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+            document.getElementById('contadorCarrito').textContent = total;
+        }
+
+        // ====================================================================
+        // FILTRADO
+        // ====================================================================
+
+        /**
+         * Filtra productos
+         */
+        function filtrarProductos() {
+            const busqueda = document.getElementById('buscador').value.toLowerCase();
+            const categoria = document.getElementById('filtroCategoria').value;
+
+            productosFiltrados = productos.filter(producto => {
+                const coincideBusqueda = producto.nombre.toLowerCase().includes(busqueda) ||
+                                        producto.descripcion.toLowerCase().includes(busqueda);
+                const coincideCategoria = categoria === '' || producto.categoria === categoria;
+                return coincideBusqueda && coincideCategoria;
+            });
+
+            mostrarProductos(productosFiltrados);
+        }
+
+        // ====================================================================
+        // CARRITO
+        // ====================================================================
+
+        /**
+         * Agrega un producto al carrito
+         */
+        function agregarAlCarrito(idProducto) {
+            const cantidadInput = document.getElementById(`cantidad-${idProducto}`);
+            const cantidad = parseInt(cantidadInput.value);
+
+            if (cantidad < 1) {
+                mostrarMensaje('La cantidad debe ser mayor a 0', 'error');
+                return;
+            }
+
+            const itemExistente = carrito.find(item => item.id === idProducto);
+            if (itemExistente) {
+                itemExistente.cantidad += cantidad;
+            } else {
+                carrito.push({ id: idProducto, cantidad });
+            }
+
+            actualizarContadorCarrito();
+            mostrarMensaje('✓ Producto agregado al carrito', 'exito');
+        }
+
+        /**
+         * Abre el modal del carrito
+         */
+        function abrirCarrito(event) {
+            event.preventDefault();
+            const modal = document.getElementById('modalCarrito');
+            modal.classList.add('activo');
+            modal.setAttribute('aria-hidden', 'false');
+            actualizarVistaCarrito();
+        }
+
+        /**
+         * Cierra el modal del carrito
+         */
+        function cerrarCarrito() {
+            document.getElementById('modalCarrito').classList.remove('activo');
+            document.getElementById('modalCarrito').setAttribute('aria-hidden', 'true');
+            document.getElementById('formularioDatos').style.display = 'none';
+        }
+
+        /**
+         * Actualiza la vista del carrito
+         */
+        function actualizarVistaCarrito() {
+            const contenedorItems = document.getElementById('carritoItems');
+            const contenedorResumen = document.getElementById('carritoResumen');
+
+            if (carrito.length === 0) {
+                contenedorItems.innerHTML = '<div class="carrito-vacio">Tu carrito está vacío</div>';
+                contenedorResumen.style.display = 'none';
+                return;
+            }
+
+            let totalCalculado = 0;
+            contenedorItems.innerHTML = carrito.map(item => {
+                const producto = productos.find(p => p.id === item.id);
+                const subtotal = producto.precio * item.cantidad;
+                totalCalculado += subtotal;
+
+                return `
+                    <div class="carrito-item">
+                        <div class="carrito-item-info">
+                            <div class="carrito-item-nombre">${producto.nombre}</div>
+                            <div class="carrito-item-precio">$${producto.precio.toFixed(2)} × ${item.cantidad}</div>
+                        </div>
+                        <div class="carrito-item-cantidad">
+                            <button onclick="decrementarItem('${item.id}')" class="btn-cantidad">−</button>
+                            <span>${item.cantidad}</span>
+                            <button onclick="incrementarItem('${item.id}')" class="btn-cantidad">+</button>
+                        </div>
+                        <button class="carrito-item-eliminar" onclick="eliminarDelCarrito('${item.id}')">✕</button>
+                    </div>
+                `;
+            }).join('');
+
+            contenedorResumen.style.display = 'block';
+            document.getElementById('subtotal').textContent = `$${totalCalculado.toFixed(2)}`;
+            document.getElementById('totalCarrito').textContent = `$${totalCalculado.toFixed(2)}`;
+        }
+
+        /**
+         * Incrementa cantidad de item
+         */
+        function incrementarItem(idProducto) {
+            const item = carrito.find(i => i.id === idProducto);
+            const producto = productos.find(p => p.id === idProducto);
+
+            if (item.cantidad < producto.stock) {
+                item.cantidad++;
+                actualizarVistaCarrito();
+                actualizarContadorCarrito();
+            } else {
+                mostrarMensaje('⚠️ Stock insuficiente', 'error');
+            }
+        }
+
+        /**
+         * Decrementa cantidad de item
+         */
+        function decrementarItem(idProducto) {
+            const item = carrito.find(i => i.id === idProducto);
+
+            if (item.cantidad > 1) {
+                item.cantidad--;
+            } else {
+                eliminarDelCarrito(idProducto);
+                return;
+            }
+
+            actualizarVistaCarrito();
+            actualizarContadorCarrito();
+        }
+
+        /**
+         * Elimina un producto del carrito
+         */
+        function eliminarDelCarrito(idProducto) {
+            const producto = productos.find(p => p.id === idProducto);
+            carrito = carrito.filter(item => item.id !== idProducto);
+            actualizarVistaCarrito();
+            actualizarContadorCarrito();
+            mostrarMensaje(`✓ ${producto.nombre} eliminado`, 'exito');
+        }
+
+        // ====================================================================
+        // PROCESO DE PAGO
+        // ====================================================================
+
+        /**
+         * Muestra el formulario de datos
+         */
+        function mostrarFormularioDatos() {
+            if (carrito.length === 0) {
+                mostrarMensaje('El carrito está vacío', 'error');
+                return;
+            }
+            document.getElementById('formularioDatos').style.display = 'block';
+            document.querySelector('button.btn-finalizar').textContent = 'Ir a Pago';
+            document.querySelector('button.btn-finalizar').onclick = irAPago;
+        }
+
+        /**
+         * Ir a la pantalla de pago
+         */
+        function irAPago() {
+            const nombre = document.getElementById('clienteNombre').value.trim();
+            const email = document.getElementById('clienteEmail').value.trim();
+            const telefono = document.getElementById('clienteTelefono').value.trim();
+
+            if (!nombre) {
+                mostrarMensaje('Por favor ingresa tu nombre', 'error');
+                return;
+            }
+
+            datosClienteActual = { nombre, email, telefono };
+            mostrarModalPago();
+        }
+
+        /**
+         * Muestra el modal de pago
+         */
+        function mostrarModalPago() {
+            const total = carrito.reduce((sum, item) => {
+                const producto = productos.find(p => p.id === item.id);
+                return sum + (producto.precio * item.cantidad);
+            }, 0);
+
+            const itemsHTML = carrito.map(item => {
+                const producto = productos.find(p => p.id === item.id);
+                return `
+                    <div class="item-resumen">
+                        <span>${producto.nombre}</span>
+                        <span>$${(producto.precio * item.cantidad).toFixed(2)}</span>
+                    </div>
+                `;
+            }).join('');
+
+            const resumenHTML = `
+                <div class="datos-cliente">
+                    <p><strong>Cliente:</strong> ${datosClienteActual.nombre}</p>
+                    ${datosClienteActual.email ? `<p><strong>Email:</strong> ${datosClienteActual.email}</p>` : ''}
+                    ${datosClienteActual.telefono ? `<p><strong>Teléfono:</strong> ${datosClienteActual.telefono}</p>` : ''}
+                </div>
+
+                <div class="items-resumen">
+                    <h3>Productos</h3>
+                    ${itemsHTML}
+                </div>
+
+                <div class="total-pago">
+                    <h3>Total a Pagar</h3>
+                    <div class="monto-total">$${total.toFixed(2)}</div>
+                </div>
+            `;
+
+            document.getElementById('resumenPago').innerHTML = resumenHTML;
+
+            const modal = document.getElementById('modalPago');
+            modal.classList.add('activo');
+            modal.setAttribute('aria-hidden', 'false');
+            document.getElementById('modalCarrito').style.display = 'none';
+        }
+
+        /**
+         * Volver al carrito
+         */
+        function volverAlCarrito() {
+            cerrarModalPago();
+            document.getElementById('modalCarrito').classList.add('activo');
+        }
+
+        /**
+         * Cierra el modal de pago
+         */
+        function cerrarModalPago() {
+            const modal = document.getElementById('modalPago');
+            modal.classList.remove('activo');
+            modal.setAttribute('aria-hidden', 'true');
+        }
+
+        /**
+         * Procesa el pago
+         */
+        async function procesarPago() {
+            try {
+                const respuesta = await fetch('/api/ventas', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        items: carrito,
+                        cliente: datosClienteActual
+                    })
+                });
+
+                const datos = await respuesta.json();
+
+                if (!respuesta.ok) {
+                    mostrarMensaje('❌ ' + datos.error, 'error');
+                    return;
+                }
+
+                cerrarModalPago();
+                mostrarModalExito(datos);
+
+            } catch (error) {
+                mostrarMensaje('Error al procesar pago: ' + error.message, 'error');
+            }
+        }
+
+        /**
+         * Muestra el modal de éxito
+         */
+        function mostrarModalExito(venta) {
+            const modal = document.getElementById('modalExito');
+            const mensaje = `
+                Compra realizada exitosamente.
+                ID de Venta: ${venta.id}
+                Total: $${venta.total.toFixed(2)}
+            `;
+            document.getElementById('mensajeExito').textContent = mensaje;
+            modal.classList.add('activo');
+            modal.setAttribute('aria-hidden', 'false');
+        }
+
+        /**
+         * Nueva compra
+         */
+        function nuevaCompra() {
+            carrito = [];
+            datosClienteActual = {};
+            document.getElementById('modalExito').classList.remove('activo');
+            document.getElementById('clienteNombre').value = '';
+            document.getElementById('clienteEmail').value = '';
+            document.getElementById('clienteTelefono').value = '';
+            actualizarContadorCarrito();
+            cargarProductos();
+            mostrarMensaje('✓ Listo para una nueva compra', 'exito');
+        }
+
+        // Cerrar modales al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('modalCarrito');
+            if (e.target === modal) cerrarCarrito();
+        });
+    </script>
+</body>
+</html>

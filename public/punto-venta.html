@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punto de Venta - Ferretería</title>
+    <link rel="stylesheet" href="./css/punto-venta.css">
+    <script>
+        // Detecta si la página está cargada dentro de un iframe y aplica estilos "embedded"
+        try {
+            if (window.self !== window.top) {
+                document.documentElement.classList.add('embedded');
+            }
+        } catch(e) {
+            // En navegadores con restricciones de cross-origin
+        }
+    </script>
+    <script src="./js/modulo-dia.js"></script>
+</head>
+<body>
+    <!-- ENCABEZADO -->
+    <header class="header-pv">
+        <div class="header-contenido-pv">
+            <div class="logo-pv">🛒 Punto de Venta</div>
+            <div class="usuario-info-pv">
+                <span id="usuarioActualPV">Vendedor</span>
+                <button class="btn-logout-pv" onclick="volverAlAdmin()">Volver</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-pv">
+        <div class="contenedor-pv">
+            <!-- LADO IZQUIERDO: CATEGORÍAS / PRODUCTOS -->
+            <section class="seccion-productos">
+                <h2 id="tituloSeccionPV">🔖 Categorías</h2>
+
+                <div class="filtro-pv">
+                    <input 
+                        type="text" 
+                        id="buscadorPV" 
+                        placeholder="🔍 Buscar productos..."
+                        oninput="searchHandler()"
+                    >
+                    <div class="filtro-actions">
+                        <select id="categoriaPV" onchange="filtrarProductosPV()" title="Filtrar por categoría">
+                            <option value="">Todas las categorías</option>
+                        </select>
+                        <button title="Actualizar categorías" class="btn-refresh-pv" onclick="renderCategories()">↻</button>
+                        <!-- Botón de producto personalizado eliminado -->
+                    </div>
+                </div>
+
+                <!-- Panel de producto personalizado eliminado -->
+
+                <!-- Grid de categorías (vista inicial) -->
+                <div id="categoriesGridPV" class="grid-productos" aria-live="polite">
+                    <!-- Las tarjetas de categoría se generarán aquí -->
+                </div>
+
+                <!-- Contenedor de productos por categoría (oculto inicialmente) -->
+                <div id="productosGridPV" class="grid-productos">
+                    <!-- Controles: barra volver + título + formulario para agregar producto personalizado -->
+                    <div id="productosControlsPV" class="productos-controls">
+                        <div class="productos-controls-row">
+                            <div class="left-controls">
+                                <button id="btnVolverCategoriasPV" class="btn-pv btn-pv-secundario" onclick="showCategoriesView()">← Volver a Categorías</button>
+                            </div>
+
+                            <div class="productos-current-title" id="productosCurrentTitle">Mostrando productos</div>
+
+                                <div class="right-controls">
+                                    <!-- Botón de producto personalizado eliminado -->
+                                </div>
+                        </div>
+                    </div>
+
+                    <!-- Contenedor que sólo contiene las tarjetas de producto (se actualiza dinámicamente) -->
+                        <div id="productosCardsContainerPV">
+                        <!-- Las tarjetas de producto se generarán aquí -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- LADO DERECHO: CARRITO Y VENTA -->
+            <aside class="seccion-carrito mejor-distribucion">
+                <!-- GESTIÓN DÍA DE TRABAJO -->
+                <div id="gestionDiaPV">
+                    <div id="estadoDiaPV">Día: -</div>
+                    <div id="infoDiaActualPV" class="info-dia-actual-pv">Sin día activo</div>
+                    <div id="detalleHorarioPV" class="detalle-horario-pv">Horarios POS cargando...</div>
+                    <div class="gestion-dia-botones">
+                        <button class="btn-pv btn-pv-secundario" id="btnIniciarDiaPV" onclick="iniciarDiaPV()">Iniciar Día</button>
+                        <button class="btn-pv btn-pv-primario" id="btnCerrarDiaPV" onclick="cerrarDiaPV()" disabled>Cerrar Día</button>
+                    </div>
+                </div>
+
+                <!-- CARRITO -->
+                <div class="carrito-seccion mejor-distribucion">
+                    <h2>🛍️ Carrito</h2>
+                    
+                    <div class="tabla-carrito-contenedor">
+                        <table class="tabla-carrito" id="tablaCarritoPV">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cant.</th>
+                                    <th>Precio</th>
+                                    <th>Subtotal</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="carritoItemsPV">
+                                <tr class="carrito-vacio">
+                                    <td colspan="5">Carrito vacío</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- TOTALES -->
+                    <div class="totales-carrito">
+                        <div class="total-fila">
+                            <span>Subtotal / Total (IVA incluido):</span>
+                            <span id="subtotalPV">$0.00</span>
+                        </div>
+                        <div class="total-fila total-grande">
+                            <span>TOTAL:</span>
+                            <span id="totalPV">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DATOS DEL CLIENTE -->
+                <div class="cliente-seccion mejor-distribucion">
+                    <h3>👤 Datos del Cliente</h3>
+                    <form id="formularioClientePV">
+                        <div class="grupo-input-pv">
+                            <label>Nombre *</label>
+                            <input type="text" id="clienteNombre" placeholder="Nombre del cliente" required>
+                        </div>
+                        <div class="grupo-input-pv">
+                            <label>Email</label>
+                            <input type="email" id="clienteEmail" placeholder="correo@ejemplo.com">
+                        </div>
+                        <div class="grupo-input-pv">
+                            <label>Teléfono</label>
+                            <input type="tel" id="clienteTelefono" placeholder="3001234567">
+                        </div>
+                    </form>
+                </div>
+
+                <!-- BOTONES DE ACCIÓN -->
+                <div class="botones-pv">
+                    <button class="btn-pv btn-pv-secundario" onclick="limpiarCarritoPV()">
+                        🗑️ Limpiar Carrito
+                    </button>
+                    <button class="btn-pv btn-pv-primario" onclick="completarVentaPV()" id="btnCompletarVentaPV">
+                        ✓ Completar Venta
+                    </button>
+                    <button class="btn-pv btn-pv-secundario" onclick="abrirModalReembolsosPV()">
+                        💰 Gestionar Reembolsos
+                    </button>
+                </div>
+
+                <!-- MENSAJE -->
+                <div id="mensajePV" class="mensaje-pv"></div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- MODAL CANTIDAD -->
+    <div class="modal-pv" id="modalCantidadPV">
+        <div class="modal-contenido-pv">
+            <h3>Seleccionar Cantidad</h3>
+            <div class="info-producto-modal">
+                <p id="modalNombreProductoPV"></p>
+                <p id="modalPrecioProductoPV"></p>
+                <p id="modalStockProductoPV"></p>
+            </div>
+            <div class="modal-qty" aria-label="Selector de cantidad">
+                <button type="button" class="btn-qty" onclick="incrementarCantidadModalPV(-1)" aria-label="Restar cantidad">−</button>
+                <input type="number" id="cantidadInputPV" min="1" step="1" value="1" placeholder="Cantidad" aria-label="Cantidad" />
+                <button type="button" class="btn-qty" onclick="incrementarCantidadModalPV(1)" aria-label="Sumar cantidad">+</button>
+            </div>
+            <div class="modal-qty-note" id="modalMaxNote" aria-live="polite"></div>
+            <div class="botones-modal-pv">
+                <button class="btn-pv btn-pv-secundario" onclick="cerrarModalCantidadPV()">Cancelar</button>
+                <button class="btn-pv btn-pv-primario" onclick="agregarAlCarritoPV()">Agregar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FACTURA -->
+    <div class="modal-pv" id="modalFacturaPV">
+        <div class="modal-contenido-pv modal-factura">
+            <button class="btn-cerrar-modal" onclick="cerrarModalFacturaPV()">✕</button>
+            <div id="contenidoFacturaPV" class="factura-contenido">
+                <!-- La factura se generará aquí -->
+            </div>
+            <div class="botones-modal-pv">
+                <button class="btn-pv btn-pv-secundario" onclick="imprimirFacturaPV()">🖨️ Imprimir</button>
+                <button class="btn-pv btn-pv-primario" onclick="descargarFacturaPV()">📥 Descargar</button>
+                <button class="btn-pv btn-pv-secundario" onclick="cerrarModalFacturaPV()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL REEMBOLSOS -->
+    <div class="modal-pv" id="modalReembolsosPV">
+        <div class="modal-contenido-pv modal-reembolsos">
+            <button class="btn-cerrar-modal" onclick="cerrarModalReembolsosPV()">✕</button>
+            <h2>💰 Gestión de Reembolsos</h2>
+            
+            <div class="tabs-reembolso">
+                <button class="tab-btn active" onclick="cambiarTabReembolso('crear')">Nuevo Reembolso</button>
+                <button class="tab-btn" onclick="cambiarTabReembolso('listar')">Ver Reembolsos</button>
+            </div>
+
+            <!-- TAB CREAR REEMBOLSO -->
+            <div class="tab-contenido activo" id="tabCrearReembolso">
+                <form id="formularioReembolsoPV">
+                    <div class="grupo-input-pv">
+                        <label>Selecciona una Venta *</label>
+                        <select id="reembolsoVenta" title="Selecciona la venta" required onchange="cargarDatosVentaPV()">
+                            <option value="">-- Selecciona una venta --</option>
+                        </select>
+                    </div>
+                    <div class="grupo-input-pv">
+                        <label>Cliente *</label>
+                        <input type="text" id="reembolsoNombre" placeholder="Nombre del cliente" required readonly>
+                    </div>
+                    <div class="grupo-input-pv">
+                        <label>Email</label>
+                        <input type="email" id="reembolsoEmail" placeholder="correo@ejemplo.com" readonly>
+                    </div>
+                    <div class="grupo-input-pv">
+                        <label>Teléfono</label>
+                        <input type="tel" id="reembolsoTelefono" placeholder="3001234567" readonly>
+                    </div>
+                    <div class="grupo-input-pv">
+                        <label>Productos de la Venta</label>
+                        <div id="productosVentaPV" class="productos-venta-info">
+                            <p class="sin-venta-seleccionada">Selecciona una venta para ver los productos</p>
+                        </div>
+                    </div>
+                    <div class="grupo-input-pv">
+                        <label>Total de la Venta</label>
+                        <input type="text" id="reembolsoTotalVenta" placeholder="$0" readonly class="input-readonly">
+                    </div>
+                    <div class="grupo-input-pv">
+                        <label>Motivo del Reembolso *</label>
+                        <select id="reembolsoMotivo" title="Selecciona el motivo del reembolso" required>
+                            <option value="">Selecciona un motivo</option>
+                            <option value="Producto defectuoso">Producto defectuoso</option>
+                            <option value="No corresponde con la descripción">No corresponde con la descripción</option>
+                            <option value="Cambio de opinión">Cambio de opinión</option>
+                            <option value="Producto dañado en transporte">Producto dañado en transporte</option>
+                            <option value="Error en la factura">Error en la factura</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="grupo-input-pv">
+                        <label>Monto a Reembolsar *</label>
+                        <input type="number" id="reembolsoMonto" placeholder="0" min="0" step="0.01" required>
+                    </div>
+                    <div class="grupo-input-pv">
+                        <label>Notas Adicionales</label>
+                        <textarea id="reembolsoNotas" placeholder="Detalles del reembolso..." rows="3"></textarea>
+                    </div>
+                    <div class="botones-modal-pv">
+                        <button type="button" class="btn-pv btn-pv-secundario" onclick="cerrarModalReembolsosPV()">Cancelar</button>
+                        <button type="submit" class="btn-pv btn-pv-primario">Crear Reembolso</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- TAB LISTAR REEMBOLSOS -->
+            <div class="tab-contenido" id="tabListarReembolso">
+                <div class="tabla-reembolsos-contenedor">
+                    <table class="tabla-reembolsos" id="tablaReembolsosPV">
+                        <thead>
+                            <tr>
+                                <th>Venta ID</th>
+                                <th>Cliente</th>
+                                <th>Motivo</th>
+                                <th>Monto</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reembolsosItemsPV">
+                            <tr><td colspan="6" class="sin-reembolsos">Cargando reembolsos...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+        // ====================================================================
+        // VARIABLES GLOBALES
+        // ====================================================================
+        let productosDisponiblesPV = [];
+        let carritoItemsPV = [];
+        let productoSeleccionadoPV = null;
+        let currentCategoryView = null; // categoría actualmente abierta (null = vista de categorías)
+
+                // Formatea números a pesos colombianos (sin decimales)
+                function formatCOP(value) {
+                    const num = Number(value) || 0;
+                    return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(Math.round(num));
+                }
+
+        // ====================================================================
+        // INICIALIZACIÓN
+        // ====================================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            verificarSesionPV();
+                    cargarProductosPV();
+                    cargarCategoriasPV();
+                    
+            const formReembolso = document.getElementById('formularioReembolsoPV');
+            if (formReembolso) {
+                formReembolso.addEventListener('submit', crearReembolsoPV);
+            }
+        });
+
+        /**
+         * Verifica sesión del usuario
+         */
+        async function verificarSesionPV() {
+            try {
+                const respuesta = await fetch('/api/verificar-sesion');
+                const datos = await respuesta.json();
+
+                if (!datos.autenticado) {
+                    window.location.href = '/admin';
+                } else {
+                    document.getElementById('usuarioActualPV').textContent = datos.usuario;
+                }
+            } catch (error) {
+                console.error('Error verificando sesión:', error);
+                window.location.href = '/admin';
+            }
+        }
+
+        /**
+         * Carga los productos disponibles
+         */
+        async function cargarProductosPV() {
+            try {
+                const respuesta = await fetch('/api/productos');
+                productosDisponiblesPV = await respuesta.json();
+                // Por defecto mostrar vista de categorías
+                renderCategories();
+            } catch (error) {
+                mostrarMensajePV('Error al cargar productos', 'error');
+            }
+        }
+
+        /**
+         * Carga las categorías en el select y delega al render de tarjetas
+         */
+        async function cargarCategoriasPV() {
+            try {
+                const resp = await fetch('/api/categorias');
+                if (!resp.ok) throw new Error('No se pudieron cargar categorías');
+                const categorias = await resp.json();
+
+                const select = document.getElementById('categoriaPV');
+                // limpiar opciones, dejando la opción por defecto
+                select.innerHTML = '<option value="">Todas las categorías</option>';
+
+                if (Array.isArray(categorias) && categorias.length > 0) {
+                    categorias.forEach(cat => {
+                        const opt = document.createElement('option');
+                        opt.value = cat;
+                        opt.textContent = cat;
+                        select.appendChild(opt);
+                    });
+                }
+
+                // render inicial de categorías (usa productosDisponiblesPV cuando esté cargado)
+                renderCategories();
+            } catch (error) {
+                console.warn('Error cargando categorías PV:', error);
+                // igualmente intentar renderizar desde los productos si el fetch falla
+                renderCategories();
+            }
+        }
+
+        /**
+         * Renderiza las tarjetas de categorías (vista inicial)
+         */
+        function renderCategories() {
+            const grid = document.getElementById('categoriesGridPV');
+            const titulo = document.getElementById('tituloSeccionPV');
+            if (!grid) return;
+
+            // Construir conteo de productos por categoría a partir de productosDisponiblesPV
+            const counts = {};
+            productosDisponiblesPV.forEach(p => {
+                const cat = p.categoria || 'Sin categoría';
+                counts[cat] = (counts[cat] || 0) + 1;
+            });
+
+            // Paleta y iconos por nombre de categoría (fallbacks)
+            const palette = {
+                'Herramientas Manuales': 'linear-gradient(135deg, #3b82f6, #06b6d4)',
+                'Herramientas Eléctricas': 'linear-gradient(135deg, #8b5cf6, #ec4899)',
+                'Construcción': 'linear-gradient(135deg, #fb923c, #ef4444)',
+                'Jardinería': 'linear-gradient(135deg, #10b981, #34d399)',
+                'Pintura': 'linear-gradient(135deg, #f59e0b, #fb923c)',
+                'Fontanería': 'linear-gradient(135deg, #06b6d4, #3b82f6)'
+            };
+
+            const icons = {
+                'Herramientas Manuales': '🔨',
+                'Herramientas Eléctricas': '⚡',
+                'Construcción': '🏗️',
+                'Jardinería': '🌱',
+                'Pintura': '🎨',
+                'Fontanería': '🔧'
+            };
+
+            const cats = Object.keys(counts).sort();
+            if (cats.length === 0) {
+                grid.innerHTML = '<div class="producto-card-loading">No hay categorías disponibles</div>';
+                return;
+            }
+
+                grid.innerHTML = cats.map(cat => {
+                const count = counts[cat] || 0;
+                const bg = palette[cat] || 'linear-gradient(135deg,#6b7280,#374151)';
+                const icon = icons[cat] || '📦';
+
+                return `
+                    <div class="producto-card-pv category-card-pv category-card-size" role="button" tabindex="0" onclick="showProductsView('${escapeHtml(cat)}')" onkeydown="if(event.key==='Enter') showProductsView('${escapeHtml(cat)}')" style="background:${bg};color:white;">
+                        <div class="category-icon" aria-hidden="true">${icon}</div>
+                        <h3 class="category-title">${cat}</h3>
+                        <div class="category-count">${count} producto${count===1? '':'s'}</div>
+                    </div>
+                `;
+            }).join('');
+
+            // Mostrar categorias y ocultar grid de productos
+            document.getElementById('categoriesGridPV').style.display = 'grid';
+            document.getElementById('productosGridPV').style.display = 'none';
+            titulo.textContent = '🔖 Categorías';
+        }
+
+        function escapeHtml(str) {
+            return String(str).replace(/'/g, "\\'").replace(/\"/g, '\\"');
+        }
+
+        /**
+         * Muestra los productos en formato tarjetas dentro del contenedor de tarjetas.
+         * Si `categoriaFilter` es proporcionada, muestra solo esa categoría.
+         * Si `lista` es proporcionada, renderiza esa lista (usado para resultados de búsqueda).
+         */
+        function mostrarProductosPV(categoriaFilter = '', lista = null) {
+            const cards = document.getElementById('productosCardsContainerPV');
+            const gridOuter = document.getElementById('productosGridPV');
+            const titulo = document.getElementById('productosCurrentTitle');
+            if (!cards || !gridOuter) return;
+
+            // Priorizar la lista pasada como argumento (caso: resultados de búsqueda ya filtrados)
+            if (Array.isArray(lista)) {
+                // Si se pasó una lista y también una categoríaFilter, mantenemos la vista de esa categoría
+                if (categoriaFilter) {
+                    currentCategoryView = categoriaFilter;
+                    titulo.textContent = `Mostrando productos de: ${categoriaFilter}`;
+                } else {
+                    currentCategoryView = null;
+                    titulo.textContent = 'Resultados de búsqueda';
+                }
+            } else if (categoriaFilter) {
+                // No se pasó lista explícita; generar desde el catálogo
+                currentCategoryView = categoriaFilter;
+                lista = productosDisponiblesPV.filter(p => p.categoria === categoriaFilter);
+                titulo.textContent = `Mostrando productos de: ${categoriaFilter}`;
+            } else {
+                currentCategoryView = null;
+                lista = productosDisponiblesPV.slice();
+                titulo.textContent = 'Resultados';
+            }
+
+            // Mostrar el contenedor de productos y ocultar categorías
+            document.getElementById('categoriesGridPV').style.display = 'none';
+            gridOuter.style.display = 'grid';
+
+            if (!lista || lista.length === 0) {
+                cards.innerHTML = '<div class="producto-card-loading">No se encontraron resultados</div>';
+                return;
+            }
+
+            cards.innerHTML = lista.map(producto => {
+                const stockClass = producto.stock > 10 ? 'color-stock-verde' : (producto.stock >=5 ? 'color-stock-amarillo' : 'color-stock-rojo');
+                const imagenHtml = producto.imagen && String(producto.imagen).startsWith('http') ? `<img src="${producto.imagen}" alt="${producto.nombre}" onerror="this.src='https://via.placeholder.com/160?text=IMG'"/>` : `<div class="producto-imagen-fallback">${producto.imagen || '📦'}</div>`;
+
+                return `
+                    <div class="producto-card-pv product-card-size" role="button" tabindex="0" onclick="abrirModalCantidadPV('${producto.id}')" onkeydown="if(event.key==='Enter') abrirModalCantidadPV('${producto.id}')" aria-label="Agregar ${escapeHtml(producto.nombre)} al carrito">
+                        <div class="producto-imagen-pv">${imagenHtml}</div>
+                        <div class="producto-info-pv">
+                            <div class="categoria-pv">${producto.categoria}</div>
+                            <h4>${producto.nombre}</h4>
+                            <p class="precio-pv">${formatCOP(producto.precio)}</p>
+                            <div class="stock-pv ${stockClass}">Stock: ${producto.stock}</div>
+                            <div class="product-actions">
+                                <button class="btn-pv-agregar" onclick="abrirModalCantidadPV('${producto.id}'); event.stopPropagation();" ${producto.stock===0? 'disabled':''} aria-label="Agregar ${escapeHtml(producto.nombre)}">+ Agregar</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        /**
+         * Filtra productos según el select de categoría y el valor del buscador.
+         * Cuando `currentCategoryView` está activa, la búsqueda se limita a esa categoría.
+         */
+        function filtrarProductosPV() {
+            const categoriaSelect = document.getElementById('categoriaPV').value;
+            const busqueda = document.getElementById('buscadorPV').value.trim().toLowerCase();
+
+            // Si estamos dentro de una categoría abierta, buscar sólo ahí
+            if (currentCategoryView) {
+                const resultados = productosDisponiblesPV.filter(p =>
+                    p.categoria === currentCategoryView && (
+                        (p.nombre || '').toLowerCase().includes(busqueda) ||
+                        (p.descripcion || '').toLowerCase().includes(busqueda)
+                    )
+                );
+                mostrarProductosPV(currentCategoryView, resultados);
+                return;
+            }
+
+            // Si el usuario seleccionó una categoría desde el select, mostrarla
+            if (categoriaSelect) {
+                mostrarProductosPV(categoriaSelect);
+                return;
+            }
+
+            // Si no hay búsqueda, volver a vista de categorías
+            if (!busqueda) {
+                renderCategories();
+                return;
+            }
+
+            // Buscar en todas las categorías y mostrar resultados
+            const resultados = productosDisponiblesPV.filter(p =>
+                (p.nombre || '').toLowerCase().includes(busqueda) ||
+                (p.descripcion || '').toLowerCase().includes(busqueda) ||
+                (p.categoria || '').toLowerCase().includes(busqueda)
+            );
+
+            if (resultados.length === 0) {
+                const cards = document.getElementById('productosCardsContainerPV');
+                const gridOuter = document.getElementById('productosGridPV');
+                if (cards && gridOuter) {
+                    document.getElementById('categoriesGridPV').style.display = 'none';
+                    gridOuter.style.display = 'grid';
+                    cards.innerHTML = '<div class="producto-card-loading">No se encontraron resultados</div>';
+                    const titulo = document.getElementById('productosCurrentTitle'); if (titulo) titulo.textContent = 'Resultados de búsqueda';
+                }
+                return;
+            }
+
+            mostrarProductosPV('', resultados);
+        }
+
+        /**
+         * Maneja el input del buscador principal (distingue vista actual)
+         */
+        function onBuscarPV() {
+            filtrarProductosPV();
+        }
+
+        /**
+         * Manejador robusto de búsqueda que respeta la categoría abierta.
+         * Se invoca desde el input `oninput`.
+         */
+        function searchHandler() {
+            const q = document.getElementById('buscadorPV').value.trim().toLowerCase();
+
+            // si no hay query, mostrar la vista actual apropiada
+            if (!q) {
+                if (currentCategoryView) {
+                    mostrarProductosPV(currentCategoryView);
+                } else {
+                    renderCategories();
+                }
+                return;
+            }
+
+            // Si estamos dentro de una categoría abierta, buscar solo ahí
+            if (currentCategoryView) {
+                const resultados = productosDisponiblesPV.filter(p =>
+                    p.categoria === currentCategoryView && (
+                        (p.nombre || '').toLowerCase().includes(q) ||
+                        (p.descripcion || '').toLowerCase().includes(q)
+                    )
+                );
+                mostrarProductosPV(currentCategoryView, resultados);
+                return;
+            }
+
+            // Búsqueda global
+            const resultados = productosDisponiblesPV.filter(p =>
+                (p.nombre || '').toLowerCase().includes(q) ||
+                (p.descripcion || '').toLowerCase().includes(q) ||
+                (p.categoria || '').toLowerCase().includes(q)
+            );
+            mostrarProductosPV('', resultados);
+        }
+
+        /**
+         * Muestra los productos de una categoría y oculta las categorías
+         */
+        function showProductsView(categoria) {
+            currentCategoryView = categoria;
+            document.getElementById('categoriesGridPV').style.display = 'none';
+            const grid = document.getElementById('productosGridPV');
+            grid.style.display = 'grid';
+            document.getElementById('tituloSeccionPV').textContent = `📦 Productos`;
+            // limpiar campo de búsqueda para enfocarnos en la categoría
+            document.getElementById('buscadorPV').value = '';
+            mostrarProductosPV(categoria);
+        }
+
+        /**
+         * Vuelve a la vista de categorías
+         */
+        function showCategoriesView() {
+            currentCategoryView = null;
+            renderCategories();
+            document.getElementById('buscadorPV').value = '';
+            document.getElementById('categoriaPV').value = '';
+        }
+
+        /**
+         * Agrega un producto personalizado directamente al carrito (desde el formulario)
+         */
+        function agregarProductoPersonalizadoPV() {
+            const nombre = document.getElementById('customNombrePV').value.trim();
+            const precio = parseFloat(document.getElementById('customPrecioPV').value);
+            const cantidad = parseInt(document.getElementById('customCantidadPV').value, 10);
+
+            const feedback = document.getElementById('customProductFeedback');
+            if (!nombre) {
+                if (feedback) { feedback.textContent = 'Ingresa el nombre del producto'; feedback.style.color = '#842029'; }
+                return;
+            }
+            if (isNaN(precio) || precio <= 0) {
+                if (feedback) { feedback.textContent = 'Ingresa un precio válido mayor a 0'; feedback.style.color = '#842029'; }
+                return;
+            }
+            if (isNaN(cantidad) || cantidad < 1) {
+                if (feedback) { feedback.textContent = 'Ingresa una cantidad válida (mínimo 1)'; feedback.style.color = '#842029'; }
+                return;
+            }
+
+            const id = 'custom-' + Date.now();
+            carritoItemsPV.push({
+                id,
+                nombre,
+                precio,
+                cantidad,
+                stock: cantidad
+            });
+
+            actualizarCarritoPV();
+            // Animación sutil del carrito
+            const carrito = document.querySelector('.carrito-seccion');
+            if (carrito) {
+                carrito.classList.add('pulse-added');
+                setTimeout(() => carrito.classList.remove('pulse-added'), 800);
+            }
+            if (feedback) { feedback.textContent = 'Producto personalizado agregado'; feedback.style.color = '#155724'; }
+            document.getElementById('formAgregarPersonalizadoPV').reset();
+            // cerrar panel si está abierto
+            const panel = document.getElementById('customProductPanelPV');
+            if (panel && panel.classList.contains('open')) toggleCustomProductPanel();
+        }
+
+        function toggleCustomProductPanel() {
+            const panel = document.getElementById('customProductPanelPV');
+            const btnMain = document.getElementById('btnToggleCustomPV');
+            const btnTop = document.getElementById('btnToggleCustomPVTop');
+            if (!panel) return;
+            const open = panel.classList.toggle('open');
+            panel.setAttribute('aria-hidden', !open);
+            const labelClose = 'Cerrar formulario';
+            const labelOpen = 'Agregar producto personalizado';
+            if (open) {
+                const nombre = document.getElementById('customNombrePV');
+                if (nombre) setTimeout(() => nombre.focus(), 80);
+                if (btnMain) btnMain.textContent = labelClose;
+                if (btnTop) btnTop.textContent = labelClose;
+            } else {
+                if (btnMain) btnMain.textContent = labelOpen;
+                if (btnTop) btnTop.textContent = labelOpen;
+                // limpiar feedback
+                const feedback = document.getElementById('customProductFeedback'); if (feedback) { feedback.textContent = ''; feedback.style.color = ''; }
+            }
+        }
+
+        /**
+         * Abre modal para seleccionar cantidad
+         */
+        function abrirModalCantidadPV(idProducto) {
+            const producto = productosDisponiblesPV.find(p => p.id === idProducto);
+            if (!producto) return;
+
+            productoSeleccionadoPV = producto;
+            document.getElementById('modalNombreProductoPV').textContent = producto.nombre;
+            document.getElementById('modalPrecioProductoPV').textContent = `Precio: ${formatCOP(producto.precio)}`;
+            document.getElementById('modalStockProductoPV').textContent = `Stock disponible: ${producto.stock}`;
+
+            const input = document.getElementById('cantidadInputPV');
+            input.value = 1;
+            input.setAttribute('max', producto.stock);
+            input.setAttribute('min', 1);
+
+            // Mostrar nota de máximo y prevenir valores inválidos
+            const nota = document.getElementById('modalMaxNote');
+            if (nota) nota.textContent = `Máximo disponible: ${producto.stock}`;
+
+            // On input clamp
+            input.oninput = function() {
+                let v = parseInt(this.value, 10) || 0;
+                if (v < 1) v = 1;
+                if (v > producto.stock) v = producto.stock;
+                this.value = v;
+            };
+
+            document.getElementById('modalCantidadPV').classList.add('activo');
+            setTimeout(() => input.focus(), 80);
+        }
+
+        /**
+         * Cierra modal de cantidad
+         */
+        function cerrarModalCantidadPV() {
+            document.getElementById('modalCantidadPV').classList.remove('activo');
+            productoSeleccionadoPV = null;
+        }
+
+        // Incrementa / decrementa la cantidad en el modal (clamps entre min y max)
+        function incrementarCantidadModalPV(delta) {
+            const input = document.getElementById('cantidadInputPV');
+            if (!input) return;
+            const max = parseInt(input.getAttribute('max'), 10) || Infinity;
+            const min = parseInt(input.getAttribute('min'), 10) || 1;
+            let v = parseInt(input.value, 10) || 0;
+            v = v + delta;
+            if (v < min) v = min;
+            if (v > max) v = max;
+            input.value = v;
+            // Update note if present
+            const nota = document.getElementById('modalMaxNote');
+            if (nota && max !== Infinity) nota.textContent = `Máximo disponible: ${max}`;
+        }
+
+        /**
+         * Agrega producto al carrito
+         */
+        function agregarAlCarritoPV() {
+            const cantidad = parseInt(document.getElementById('cantidadInputPV').value);
+            
+            if (!cantidad || cantidad < 1 || cantidad > productoSeleccionadoPV.stock) {
+                mostrarMensajePV('Cantidad inválida', 'error');
+                return;
+            }
+
+            // Verificar si ya existe en carrito
+            const indiceExistente = carritoItemsPV.findIndex(item => item.id === productoSeleccionadoPV.id);
+            
+            if (indiceExistente !== -1) {
+                carritoItemsPV[indiceExistente].cantidad += cantidad;
+            } else {
+                carritoItemsPV.push({
+                    id: productoSeleccionadoPV.id,
+                    nombre: productoSeleccionadoPV.nombre,
+                    precio: productoSeleccionadoPV.precio,
+                    cantidad: cantidad,
+                    stock: productoSeleccionadoPV.stock
+                });
+            }
+
+            cerrarModalCantidadPV();
+            actualizarCarritoPV();
+            // Animación sutil del carrito
+            const carrito = document.querySelector('.carrito-seccion');
+            if (carrito) {
+                carrito.classList.add('pulse-added');
+                setTimeout(() => carrito.classList.remove('pulse-added'), 800);
+            }
+            mostrarMensajePV('Producto agregado', 'exito');
+        }
+
+        /**
+         * Actualiza la visualización del carrito
+         */
+        function actualizarCarritoPV() {
+            const tbody = document.getElementById('carritoItemsPV');
+
+            if (carritoItemsPV.length === 0) {
+                tbody.innerHTML = '<tr class="carrito-vacio"><td colspan="5">Carrito vacío</td></tr>';
+                document.getElementById('subtotalPV').textContent = '$0.00';
+                document.getElementById('totalPV').textContent = '$0.00';
+                return;
+            }
+
+            tbody.innerHTML = carritoItemsPV.map((item, index) => {
+                const subtotal = item.precio * item.cantidad;
+                return `
+                    <tr>
+                        <td>${item.nombre}</td>
+                        <td>
+                            <div class="qty-controls">
+                                <button onclick="cambiarCantidadCarritoPV(${index}, -1)">-</button>
+                                <span>${item.cantidad}</span>
+                                <button onclick="cambiarCantidadCarritoPV(${index}, 1)">+</button>
+                            </div>
+                        </td>
+                        <td>${formatCOP(item.precio)}</td>
+                        <td>${formatCOP(subtotal)}</td>
+                        <td>
+                            <button class="btn-pv btn-pv-eliminar" onclick="eliminarDelCarritoPV(${index})">
+                                ✕
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Calcular totales (precios incluyen IVA)
+            const subtotal = carritoItemsPV.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+            const total = subtotal; // IVA ya incluido en los precios
+
+            document.getElementById('subtotalPV').textContent = formatCOP(subtotal);
+            document.getElementById('totalPV').textContent = formatCOP(total);
+        }
+
+        /**
+         * Actualiza cantidad de item en carrito
+         */
+        function actualizarCantidadCarritoPV(index, cantidad) {
+            cantidad = parseInt(cantidad);
+            if (cantidad < 1) {
+                eliminarDelCarritoPV(index);
+                return;
+            }
+            if (cantidad > carritoItemsPV[index].stock) {
+                cantidad = carritoItemsPV[index].stock;
+            }
+            carritoItemsPV[index].cantidad = cantidad;
+            actualizarCarritoPV();
+        }
+
+        // Cambia la cantidad por delta (+1 / -1) desde los botones
+        function cambiarCantidadCarritoPV(index, delta) {
+            if (!carritoItemsPV[index]) return;
+            let nueva = carritoItemsPV[index].cantidad + delta;
+            if (nueva < 1) {
+                eliminarDelCarritoPV(index);
+                return;
+            }
+            if (nueva > carritoItemsPV[index].stock) nueva = carritoItemsPV[index].stock;
+            carritoItemsPV[index].cantidad = nueva;
+            actualizarCarritoPV();
+        }
+
+        /**
+         * Elimina producto del carrito
+         */
+        function eliminarDelCarritoPV(index) {
+            carritoItemsPV.splice(index, 1);
+            actualizarCarritoPV();
+            mostrarMensajePV('Producto eliminado del carrito', 'exito');
+        }
+
+        /**
+         * Limpia el carrito completo
+         */
+        function limpiarCarritoPV() {
+            if (carritoItemsPV.length === 0) {
+                mostrarMensajePV('El carrito ya está vacío', 'info');
+                return;
+            }
+
+            if (confirm('¿Deseas limpiar el carrito completo?')) {
+                carritoItemsPV = [];
+                actualizarCarritoPV();
+                mostrarMensajePV('Carrito limpiado', 'exito');
+            }
+        }
+
+        /**
+         * Completa la venta y muestra factura
+         */
+        async function completarVentaPV() {
+            // VALIDACIÓN: Verificar que el día está abierto
+            if (!puedeHacerVenta()) {
+                mostrarMensajePV('⚠️ Debes iniciar el día de trabajo para registrar ventas', 'error');
+                return;
+            }
+
+            // Validar carrito
+            if (carritoItemsPV.length === 0) {
+                mostrarMensajePV('El carrito está vacío', 'error');
+                return;
+            }
+
+            // Validar cliente
+            const nombreCliente = document.getElementById('clienteNombre').value.trim();
+            if (!nombreCliente) {
+                mostrarMensajePV('Ingresa el nombre del cliente', 'error');
+                return;
+            }
+
+            // Preparar datos de venta
+            const ventaData = {
+                items: carritoItemsPV.map(item => ({
+                    id: item.id,
+                    cantidad: item.cantidad
+                })),
+                cliente: {
+                    nombre: nombreCliente,
+                    email: document.getElementById('clienteEmail').value.trim(),
+                    telefono: document.getElementById('clienteTelefono').value.trim()
+                }
+            };
+
+            // Deshabilitar botón
+            const btnComprar = document.getElementById('btnCompletarVentaPV');
+            btnComprar.disabled = true;
+            btnComprar.textContent = 'Procesando...';
+
+            try {
+                const respuesta = await fetch('/api/ventas', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(ventaData)
+                });
+
+                const resultado = await respuesta.json();
+
+                if (!respuesta.ok) {
+                    mostrarMensajePV(resultado.error || 'Error al procesar la venta', 'error');
+                    btnComprar.disabled = false;
+                    btnComprar.textContent = '✓ Completar Venta';
+                    return;
+                }
+
+                // Venta exitosa - mostrar factura
+                mostrarMensajePV('Venta completada exitosamente', 'exito');
+                generarFacturaPV(resultado.venta);
+                
+                // Limpiar datos después de mostrar factura
+                setTimeout(() => {
+                    carritoItemsPV = [];
+                    document.getElementById('formularioClientePV').reset();
+                    actualizarCarritoPV();
+                    cargarProductosPV();
+                    btnComprar.disabled = false;
+                    btnComprar.textContent = '✓ Completar Venta';
+                }, 500);
+
+            } catch (error) {
+                mostrarMensajePV('Error al conectar con el servidor', 'error');
+                btnComprar.disabled = false;
+                btnComprar.textContent = '✓ Completar Venta';
+                console.error('Error:', error);
+            }
+        }
+
+        /**
+         * Genera la factura HTML
+         */
+        function generarFacturaPV(venta) {
+            const fecha = new Date(venta.fecha).toLocaleString('es-CO');
+            // Asumimos que los precios ya incluyen IVA, por eso el subtotal es la suma de items
+            const subtotal = venta.items.reduce((s, it) => s + (it.subtotal || (it.precio * it.cantidad)), 0);
+            const iva = 0; // No mostrar IVA por separado
+
+            const itemsHTML = venta.items.map(item => `
+                <tr>
+                    <td>${item.nombre}</td>
+                    <td class="cantidad">${item.cantidad}</td>
+                    <td class="precio">${formatCOP(item.precio)}</td>
+                    <td class="subtotal">${formatCOP(item.subtotal)}</td>
+                </tr>
+            `).join('');
+
+            const html = `
+                <div class="factura">
+                    <div class="factura-encabezado">
+                        <div class="factura-logo">
+                            <img src="/img/logo.png" alt="Ferretería Brianova">
+                        </div>
+                        <div class="factura-info-empresa">
+                            
+                            <p class="empresa-sub">Sistema de Punto de Venta</p>
+                        </div>
+                        
+                    </div>
+
+                    <div class="factura-datos">
+                        <div class="factura-columna">
+                            <p><strong>ID Factura:</strong> ${venta.id}</p>
+                            <p><strong>Fecha:</strong> ${fecha}</p>
+                        </div>
+                        <div class="factura-columna">
+                            <p><strong>Cliente:</strong> ${venta.cliente.nombre}</p>
+                            ${venta.cliente.email ? `<p><strong>Email:</strong> ${venta.cliente.email}</p>` : ''}
+                            ${venta.cliente.telefono ? `<p><strong>Teléfono:</strong> ${venta.cliente.telefono}</p>` : ''}
+                        </div>
+                    </div>
+
+                    <table class="factura-tabla">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th class="cantidad">Cantidad</th>
+                                <th class="precio">Precio Unit.</th>
+                                <th class="subtotal">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${itemsHTML}
+                        </tbody>
+                    </table>
+
+                    <div class="factura-totales">
+                        <div class="fila-total">
+                            <span>Subtotal (IVA incluido):</span>
+                            <span>${formatCOP(subtotal)}</span>
+                        </div>
+                        <div class="fila-total total-final">
+                            <span>TOTAL:</span>
+                            <span>${formatCOP(venta.total)}</span>
+                        </div>
+                    </div>
+
+                    <div class="factura-pie">
+                        <p>Gracias por su compra</p>
+                        <p style="font-size: 0.8rem; color: #999;">Generado: ${new Date().toLocaleString('es-CO')}</p>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('contenidoFacturaPV').innerHTML = html;
+            // Guardar datos de factura para descarga
+            window.ventaActualPV = venta;
+            document.getElementById('modalFacturaPV').classList.add('activo');
+        }
+
+        /**
+         * Imprime la factura
+         */
+        function imprimirFacturaPV() {
+            const contenido = document.getElementById('contenidoFacturaPV').innerHTML;
+            // Crear un iframe temporal en la misma página para imprimir sin abrir nueva ventana
+            const iframe = document.createElement('iframe');
+            iframe.style.position = 'fixed';
+            iframe.style.right = '0';
+            iframe.style.bottom = '0';
+            iframe.style.width = '0';
+            iframe.style.height = '0';
+            iframe.style.border = '0';
+            iframe.id = 'print-iframe-pv';
+            document.body.appendChild(iframe);
+
+            const doc = iframe.contentWindow || iframe.contentDocument;
+            const docRef = iframe.contentDocument || iframe.contentWindow.document;
+            docRef.open();
+            docRef.write(`
+                <html>
+                <head>
+                    <title>Factura</title>
+                    <style>
+                        body { font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; margin: 20px; color: #222; }
+                        .factura { max-width: 760px; margin: 0 auto; background: #fff; padding: 28px; border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
+                        .factura-encabezado { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:22px; }
+                        .factura-logo img { max-height:80px; display:block; }
+                        .factura-info-empresa { color:#666; font-size:0.95rem; }
+                        .factura-titulo h1 { color: #D64545; margin:0; font-size:1.05rem; letter-spacing:0.6px; }
+                        .factura-tabla { width: 100%; border-collapse: collapse; margin: 18px 0; }
+                        .factura-tabla th, .factura-tabla td { padding: 12px 14px; text-align: left; }
+                        .factura-tabla thead th { background: #fafafa; font-weight: 700; color: #444; border-bottom: 1px solid #eee; }
+                        .factura-tabla tbody td { border-bottom: 1px solid #f3f3f3; }
+                        .cantidad, .precio, .subtotal { text-align: right; }
+                        .factura-totales { margin-top: 18px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 12px; }
+                        .fila-total { display: flex; justify-content: space-between; margin: 8px 0; }
+                        .total-final { font-weight: 800; font-size: 1.18em; color: #D64545; padding-top: 8px; border-top: 2px solid rgba(214,69,69,0.12); }
+                        .factura-pie { text-align: center; margin-top: 24px; color: #888; font-size: 0.92rem; }
+                        @media print { body { margin: 0; } .factura { box-shadow: none; border-radius: 0; } }
+                    </style>
+                </head>
+                <body>
+                    ${contenido}
+                </body>
+                </html>
+            `);
+            docRef.close();
+
+            // Esperar a que el iframe cargue el contenido y luego imprimir
+            iframe.onload = function() {
+                try {
+                    iframe.contentWindow.focus();
+                    iframe.contentWindow.print();
+                } catch (e) {
+                    console.error('Error imprimiendo desde iframe:', e);
+                }
+                // Remover iframe después de un pequeño delay
+                setTimeout(() => {
+                    if (iframe && iframe.parentNode) iframe.parentNode.removeChild(iframe);
+                }, 800);
+            };
+            // Si el iframe no dispara onload, intentar imprimir tras un timeout
+            setTimeout(() => {
+                try {
+                    if (iframe && iframe.contentWindow) iframe.contentWindow.print();
+                } catch (e) {}
+                if (iframe && iframe.parentNode) iframe.parentNode.removeChild(iframe);
+            }, 1500);
+        }
+
+        /**
+         * Descarga la factura como HTML
+         */
+        function descargarFacturaPV() {
+            const venta = window.ventaActualPV;
+            if (!venta) return;
+
+            const contenido = document.getElementById('contenidoFacturaPV').innerHTML;
+            const html = `
+                <!DOCTYPE html>
+                <html lang="es">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Factura ${venta.id}</title>
+                    <style>
+                        * { margin: 0; padding: 0; box-sizing: border-box; }
+                        body { font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: #f7f7f8; padding: 22px; color: #222; }
+                        .factura { background: white; max-width: 760px; margin: 0 auto; padding: 28px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); border-radius: 8px; }
+                        .factura-encabezado { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:22px; }
+                        .factura-logo img { max-height:80px; }
+                        .factura-info-empresa { color:#666; font-size:0.95rem; }
+                        .factura-titulo h1 { color: #D64545; margin:0; font-size:1.05rem; }
+                        .factura-datos { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+                        .factura-columna p { margin: 5px 0; font-size: 0.95rem; }
+                        .factura-tabla { width: 100%; border-collapse: collapse; margin-bottom: 18px; }
+                        .factura-tabla thead th { background: #fafafa; padding: 12px 14px; text-align: left; border-bottom: 1px solid #eee; }
+                        .factura-tabla td { padding: 12px 14px; border-bottom: 1px solid #f3f3f3; }
+                        .cantidad, .precio, .subtotal { text-align: right; }
+                        .factura-totales { margin: 18px 0; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 12px; }
+                        .fila-total { display: flex; justify-content: space-between; margin-bottom: 10px; }
+                        .total-final { font-weight: 800; font-size: 1.18em; color: #D64545; }
+                        .factura-pie { text-align: center; margin-top: 24px; color: #888; font-size: 0.92em; }
+                        @media print { body { background: white; padding: 0; } .factura { box-shadow: none; border-radius: 0; } }
+                    </style>
+                </head>
+                <body>
+                    ${contenido}
+                </body>
+                </html>
+            `;
+
+            const blob = new Blob([html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `factura-${venta.id}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        /**
+         * Cierra modal de factura
+         */
+        function cerrarModalFacturaPV() {
+            document.getElementById('modalFacturaPV').classList.remove('activo');
+        }
+
+        /**
+         * Muestra mensaje
+         */
+        function mostrarMensajePV(texto, tipo = 'info') {
+            const contenedor = document.getElementById('mensajePV');
+            contenedor.textContent = texto;
+            contenedor.className = `mensaje-pv mensaje-pv-${tipo}`;
+
+            setTimeout(() => {
+                contenedor.textContent = '';
+                contenedor.className = 'mensaje-pv';
+            }, 3000);
+        }
+
+        /**
+         * Vuelve al panel admin
+         */
+        function volverAlAdmin() {
+            try {
+                if (window.self !== window.top) {
+                    // En modo embebido: pedir al padre que cierre el iframe
+                    window.parent.postMessage('close-pv', '*');
+                    return;
+                }
+            } catch (e) {
+                // si hay error, caer en la navegación normal
+            }
+            window.location.href = '/admin';
+        }
+
+        // ====================================================================
+        // FUNCIONES DE REEMBOLSOS
+        // ====================================================================
+
+        /**
+         * Abre modal de reembolsos
+         */
+        function abrirModalReembolsosPV() {
+            document.getElementById('modalReembolsosPV').classList.add('activo');
+            cargarVentasPV();
+        }
+
+        /**
+         * Cierra modal de reembolsos
+         */
+        function cerrarModalReembolsosPV() {
+            document.getElementById('modalReembolsosPV').classList.remove('activo');
+        }
+
+        /**
+         * Carga las ventas en el selector
+         */
+        async function cargarVentasPV() {
+            try {
+                const respuesta = await fetch('/api/ventas', {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const ventas = await respuesta.json();
+                const selectVenta = document.getElementById('reembolsoVenta');
+                
+                selectVenta.innerHTML = '<option value="">-- Selecciona una venta --</option>';
+                
+                if (Array.isArray(ventas) && ventas.length > 0) {
+                    ventas.forEach(venta => {
+                        const fecha = new Date(venta.fecha).toLocaleString('es-CO');
+                        const option = document.createElement('option');
+                        option.value = venta.id;
+                        option.textContent = `${venta.id} - ${venta.cliente.nombre} - ${formatCOP(venta.total)} (${fecha})`;
+                        selectVenta.appendChild(option);
+                    });
+                } else {
+                    const option = document.createElement('option');
+                    option.textContent = 'No hay ventas registradas';
+                    option.disabled = true;
+                    selectVenta.appendChild(option);
+                }
+                
+                cargarReembolsosPV();
+            } catch (error) {
+                console.error('Error cargando ventas:', error);
+                mostrarMensajePV('Error al cargar ventas', 'error');
+            }
+        }
+
+        /**
+         * Carga los datos de la venta seleccionada
+         */
+        async function cargarDatosVentaPV() {
+            const ventaId = document.getElementById('reembolsoVenta').value;
+            if (!ventaId) {
+                limpiarFormularioReembolsoPV();
+                return;
+            }
+
+            try {
+                // Obtener ventas y reembolsos
+                const [ventas, reembolsos] = await Promise.all([
+                    fetch('/api/ventas', { headers: { 'Content-Type': 'application/json' } }).then(res => res.json()),
+                    fetch('/api/reembolsos', { headers: { 'Content-Type': 'application/json' } }).then(res => res.json())
+                ]);
+                const venta = ventas.find(v => v.id === ventaId);
+                if (venta) {
+                    document.getElementById('reembolsoNombre').value = venta.cliente.nombre;
+                    document.getElementById('reembolsoEmail').value = venta.cliente.email || '';
+                    document.getElementById('reembolsoTelefono').value = venta.cliente.telefono || '';
+                    document.getElementById('reembolsoTotalVenta').value = formatCOP(venta.total);
+
+                    // Filtrar productos ya reembolsados (cualquier estado)
+                    const productosReembolsados = reembolsos
+                        .filter(r => r.idVenta === ventaId)
+                        .map(r => r.items ? r.items.map(i => i.idProducto) : []);
+                    const idsReembolsados = [].concat(...productosReembolsados);
+
+                    // Mostrar solo productos no reembolsados
+                    const productosDiv = document.getElementById('productosVentaPV');
+                    const productosNoReembolsados = venta.items.filter(item => !idsReembolsados.includes(item.idProducto));
+
+                    if (productosNoReembolsados.length === 0) {
+                        productosDiv.innerHTML = '<p class="sin-venta-seleccionada">Todos los productos de esta venta ya han sido reembolsados</p>';
+                        document.getElementById('reembolsoMonto').value = '';
+                        return;
+                    }
+
+                    productosDiv.innerHTML = `
+                        <div class="productos-lista">
+                            ${productosNoReembolsados.map(item => `
+                                <div class="producto-item">
+                                    <strong>${item.nombre}</strong>
+                                    <span>${item.cantidad}x ${formatCOP(item.precio)} = ${formatCOP(item.subtotal)}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    // Pre-llenar monto con el total de los productos no reembolsados
+                    const totalNoReembolsado = productosNoReembolsados.reduce((sum, item) => sum + item.subtotal, 0);
+                    document.getElementById('reembolsoMonto').value = totalNoReembolsado;
+                }
+            } catch (error) {
+                console.error('Error cargando datos de venta:', error);
+                limpiarFormularioReembolsoPV();
+            }
+        }
+
+        /**
+         * Limpia el formulario de reembolso
+         */
+        function limpiarFormularioReembolsoPV() {
+            document.getElementById('reembolsoNombre').value = '';
+            document.getElementById('reembolsoEmail').value = '';
+            document.getElementById('reembolsoTelefono').value = '';
+            document.getElementById('reembolsoTotalVenta').value = '';
+            document.getElementById('reembolsoMonto').value = '';
+            document.getElementById('productosVentaPV').innerHTML = '<p class="sin-venta-seleccionada">Selecciona una venta para ver los productos</p>';
+        }
+
+        /**
+         * Cambia entre tabs del modal de reembolsos
+         */
+        function cambiarTabReembolso(tab) {
+            const tabs = document.querySelectorAll('.tab-contenido');
+            const botones = document.querySelectorAll('.tab-btn');
+            
+            tabs.forEach(t => t.classList.remove('activo'));
+            botones.forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(`tab${tab.charAt(0).toUpperCase() + tab.slice(1)}Reembolso`).classList.add('activo');
+            event.target.classList.add('active');
+
+            if (tab === 'listar') {
+                cargarReembolsosPV();
+            }
+        }
+
+        /**
+         * Carga los reembolsos desde el servidor
+         */
+        async function cargarReembolsosPV() {
+            try {
+                const respuesta = await fetch('/api/reembolsos', {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const reembolsos = await respuesta.json();
+                mostrarReembolsosPV(reembolsos);
+            } catch (error) {
+                console.error('Error cargando reembolsos:', error);
+                mostrarMensajePV('Error al cargar reembolsos', 'error');
+            }
+        }
+
+        /**
+         * Muestra los reembolsos en la tabla
+         */
+        function mostrarReembolsosPV(reembolsos) {
+            const tbody = document.getElementById('reembolsosItemsPV');
+            
+            if (!reembolsos || reembolsos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="sin-reembolsos">No hay reembolsos registrados</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = reembolsos.map(reembolso => {
+                const estadoClass = `estado-${reembolso.estado}`;
+                const ventaDisplay = reembolso.idVenta ? reembolso.idVenta.substring(0, 8) + '...' : 'N/A';
+                return `
+                    <tr>
+                        <td><small title="${reembolso.idVenta || 'Sin venta'}">${ventaDisplay}</small></td>
+                        <td><strong>${reembolso.cliente.nombre}</strong></td>
+                        <td>${reembolso.motivo}</td>
+                        <td>${formatCOP(reembolso.monto)}</td>
+                        <td><span class="badge-estado ${estadoClass}">${reembolso.estado}</span></td>
+                        <td>
+                            ${reembolso.estado === 'pendiente' ? `
+                                <button class="btn-pv-pequeño btn-aprobar" onclick="actualizarEstadoReembolsoPV('${reembolso.id}', 'aprobado')" title="Aprobar">✓</button>
+                                <button class="btn-pv-pequeño btn-rechazar" onclick="actualizarEstadoReembolsoPV('${reembolso.id}', 'rechazado')" title="Rechazar">✗</button>
+                            ` : `
+                                <span class="text-muted">-</span>
+                            `}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        /**
+         * Actualiza el estado de un reembolso
+         */
+        async function actualizarEstadoReembolsoPV(id, nuevoEstado) {
+            try {
+                const respuesta = await fetch(`/api/reembolsos/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ estado: nuevoEstado })
+                });
+
+                if (!respuesta.ok) {
+                    throw new Error('Error al actualizar estado');
+                }
+
+                mostrarMensajePV(`Reembolso ${nuevoEstado}`, 'exito');
+                cargarReembolsosPV();
+            } catch (error) {
+                mostrarMensajePV('Error al actualizar reembolso', 'error');
+                console.error(error);
+            }
+        }
+
+        /**
+         * Crea un nuevo reembolso
+         */
+        async function crearReembolsoPV(event) {
+            event.preventDefault();
+
+            const ventaId = document.getElementById('reembolsoVenta').value;
+            const nombre = document.getElementById('reembolsoNombre').value.trim();
+            const email = document.getElementById('reembolsoEmail').value.trim();
+            const telefono = document.getElementById('reembolsoTelefono').value.trim();
+            const motivo = document.getElementById('reembolsoMotivo').value;
+            const monto = parseFloat(document.getElementById('reembolsoMonto').value);
+            const notas = document.getElementById('reembolsoNotas').value.trim();
+
+            if (!ventaId || !nombre || !motivo || !monto || monto <= 0) {
+                mostrarMensajePV('Por favor completa los campos requeridos (Venta, Cliente, Motivo y Monto)', 'error');
+                return;
+            }
+
+            // Validar que no haya reembolso para los productos seleccionados (cualquier estado)
+            try {
+                const [reembolsos, ventas] = await Promise.all([
+                    fetch('/api/reembolsos', { headers: { 'Content-Type': 'application/json' } }).then(res => res.json()),
+                    fetch('/api/ventas', { headers: { 'Content-Type': 'application/json' } }).then(res => res.json())
+                ]);
+                const venta = ventas.find(v => v.id === ventaId);
+                if (!venta) {
+                    mostrarMensajePV('Venta no encontrada', 'error');
+                    return;
+                }
+                const productosReembolsados = reembolsos
+                    .filter(r => r.idVenta === ventaId)
+                    .map(r => r.items ? r.items.map(i => i.idProducto) : []);
+                const idsReembolsados = [].concat(...productosReembolsados);
+                const productosNoReembolsados = venta.items.filter(item => !idsReembolsados.includes(item.idProducto));
+                if (productosNoReembolsados.length === 0) {
+                    mostrarMensajePV('Todos los productos de esta venta ya han sido reembolsados', 'error');
+                    return;
+                }
+
+                // Solo permitir reembolso de productos no reembolsados
+                const reembolsoData = {
+                    idVenta: ventaId,
+                    cliente: { nombre, email, telefono },
+                    motivo,
+                    monto,
+                    notas,
+                    items: productosNoReembolsados.map(item => ({
+                        idProducto: item.idProducto,
+                        nombre: item.nombre,
+                        cantidad: item.cantidad,
+                        precio: item.precio,
+                        subtotal: item.subtotal
+                    }))
+                };
+
+                const respuesta = await fetch('/api/reembolsos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(reembolsoData)
+                });
+
+                if (!respuesta.ok) {
+                    throw new Error('Error al crear reembolso');
+                }
+
+                mostrarMensajePV('Reembolso creado exitosamente', 'exito');
+                document.getElementById('formularioReembolsoPV').reset();
+                limpiarFormularioReembolsoPV();
+                cambiarTabReembolso('listar');
+                // Actualizar historial de ventas (puedes llamar aquí a una función para refrescar la vista de ventas si tienes una)
+            } catch (error) {
+                mostrarMensajePV('Error al crear reembolso', 'error');
+                console.error(error);
+            }
+        }
+
+        // Cerrar modal con ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                cerrarModalCantidadPV();
+                cerrarModalFacturaPV();
+                cerrarModalReembolsosPV();
+            }
+        });
+    </script>
+</body>
+</html>
